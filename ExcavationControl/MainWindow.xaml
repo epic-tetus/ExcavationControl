@@ -9,11 +9,6 @@
         Title="MainWindow" Height="1080" Width="1920" MinHeight="720" MinWidth="1280">
     <Grid>
         <DockPanel>
-            
-
-
-
-
 
             <Grid ShowGridLines="False" DockPanel.Dock="Right">
                 <Grid.RowDefinitions>

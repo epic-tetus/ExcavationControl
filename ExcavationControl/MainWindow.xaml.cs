@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcavationControl.Views;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -26,6 +27,41 @@ namespace ExcavationControl
             InitializeComponent();
 
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
+
+            HCKnob.knob.ValueChanged += HCKnob_ValueChanged;
+            SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
+            CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
+            EXKnob.knob.ValueChanged += EXKnob_ValueChanged;
+        }
+
+        private void HCKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int value = (int)Math.Round(HCKnob.knob.Value);
+
+            int standard = (120 + 100) / 2;
+            //노브 코드 적용 요함
+            if(value == 120)
+
+            HText.Text = Math.Round(HCKnob.knob.Value).ToString();
+            
+        }
+
+        private void SCKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SText.Text = Math.Round(SCKnob.knob.Value).ToString();
+
+        }
+
+        private void CBKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            CText.Text = Math.Round(CBKnob.knob.Value).ToString();
+
+        }
+
+        private void EXKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            EText.Text = Math.Round(EXKnob.knob.Value).ToString();
+
         }
     }
 }
