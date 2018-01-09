@@ -4,9 +4,763 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcavationControl"
+        xmlns:knob="clr-namespace:ExcavationControl.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="1080" Width="1920" MinHeight="720" MinWidth="1280">
     <Grid>
-        
+        <!--<DockPanel>
+            
+        </DockPanel>-->
+        <Grid ShowGridLines="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Row="0" ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.175*"/>
+                    <ColumnDefinition Width="0.175*"/>
+                    <ColumnDefinition Width="0.175*"/>
+                    <ColumnDefinition Width="0.175*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.15*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Background="Black" Foreground="White" 
+                           Margin="5 2.5" Padding="0"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           FontSize="25" FontWeight="Bold">Head Cutter</Label>
+
+                    <Label Grid.Row="1" 
+                           FontSize="20" 
+                           HorizontalAlignment="Center">Speed Control (%)</Label>
+                    
+                    <knob:KnobControl x:Name="HCKnob" 
+                                      Grid.Row="1"
+                                      Width="Auto"
+                                      VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <knob:KnobControl.LayoutTransform>
+                            <RotateTransform Angle="210"/>
+                        </knob:KnobControl.LayoutTransform>
+                    </knob:KnobControl>
+
+                    <Grid Background="Yellow" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.15*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
+                        
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!--<Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">△</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">▽</Button>-->
+                            <Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 3 0 0"
+                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 0 0 3"
+                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+                            
+                        </Grid>
+                        
+                        <TextBox x:Name="HText"
+                                 Grid.Column="2"
+                                 FontWeight="Bold"
+                                 Padding="0 5 0 5"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            0
+                        </TextBox>
+                        
+                        <Label Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center">%</Label>
+
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Direction.</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1"
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.15*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Background="Black" Foreground="White" 
+                           Margin="5 2.5" Padding="0"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           FontSize="25" FontWeight="Bold">Screw Conveyer</Label>
+
+                    <Label Grid.Row="1" 
+                           FontSize="20" 
+                           HorizontalAlignment="Center">Speed Control (%)</Label>
+
+                    <knob:KnobControl x:Name="SCKnob" 
+                                  Grid.Row="1" Width="Auto"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <knob:KnobControl.LayoutTransform>
+                            <RotateTransform Angle="210"/>
+                        </knob:KnobControl.LayoutTransform>
+                    </knob:KnobControl>
+
+                    <Grid Background="Yellow" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.15*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--<Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">△</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">▽</Button>-->
+                            <Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 3 0 0"
+                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 0 0 3"
+                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+
+                        </Grid>
+
+                        <TextBox x:Name="SText"
+                                 Grid.Column="2"
+                                 FontWeight="Bold"
+                                 Padding="0 5 0 5"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            0
+                        </TextBox>
+                        
+                        <Label Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center">%</Label>
+
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Direction.</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1"
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.15*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Background="Black" Foreground="White" 
+                           Margin="5 2.5" Padding="0"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           FontSize="25" FontWeight="Bold">Conveyor Belt</Label>
+
+                    <Label Grid.Row="1" 
+                           FontSize="20" 
+                           HorizontalAlignment="Center">Speed Control (%)</Label>
+
+                    <knob:KnobControl x:Name="CBKnob" 
+                              Grid.Row="1" Width="Auto"
+                              VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <knob:KnobControl.LayoutTransform>
+                            <RotateTransform Angle="210"/>
+                        </knob:KnobControl.LayoutTransform>
+                    </knob:KnobControl>
+
+                    <Grid Background="Yellow" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.15*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--<Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">△</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">▽</Button>-->
+                            <Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 3 0 0"
+                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 0 0 3"
+                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+
+                        </Grid>
+
+                        <TextBox x:Name="CText"
+                                 Grid.Column="2"
+                                 FontWeight="Bold"
+                                 Padding="0 5 0 5"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            0
+                        </TextBox>
+
+                        <Label Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center">%</Label>
+
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Direction.</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1"
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.15*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Background="Black" Foreground="White" 
+                           Margin="5 2.5" Padding="0"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           FontSize="25" FontWeight="Bold">Excavation</Label>
+
+                    <Label Grid.Row="1" 
+                           FontSize="20" 
+                           HorizontalAlignment="Center">Speed Control (%)</Label>
+
+                    <knob:KnobControl x:Name="EXKnob" 
+                              Grid.Row="1" Width="Auto"
+                              VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <knob:KnobControl.LayoutTransform>
+                            <RotateTransform Angle="210"/>
+                        </knob:KnobControl.LayoutTransform>
+                    </knob:KnobControl>
+
+                    <Grid Background="Yellow" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.15*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--<Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">△</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    FontSize="10" FontWeight="ExtraBold">▽</Button>-->
+                            <Button Grid.Row="0" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 3 0 0"
+                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
+                            <Button Grid.Row="1" 
+                                    BorderBrush="Transparent" 
+                                    Background="Transparent" 
+                                    Padding="0 0 0 3"
+                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+
+                        </Grid>
+
+                        <TextBox x:Name="EText"
+                                 Grid.Column="2"
+                                 FontWeight="Bold"
+                                 Padding="0 5 0 5"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            0
+                        </TextBox>
+                        
+                        <Label Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center">%</Label>
+
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold" 
+                               Margin="10 0" Padding="0">- Direction.</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1"
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" 
+                               FontWeight="Bold"
+                               Margin="10 0" Padding="0">- Auto / Manual</Label>
+                        <Button Grid.Column="0" Grid.Row="1" 
+                                Margin="10 0 5 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Red" Foreground="White">RIGHT</Button>
+                        <Button Grid.Column="1" Grid.Row="1" 
+                                Margin="5 0 10 5"
+                                FontSize="20" FontWeight="Bold"
+                                Background="Green" Foreground="White">LEFT</Button>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Column="1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.7*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                          BorderBrush="Black" BorderThickness="2"
+                          Padding="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="0.6*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" 
+                           VerticalAlignment="Center"
+                           FontSize="25" FontWeight="Bold">-Auto Control Set(Straight)</Label>
+                        <TextBox x:Name="AutoControlBox" 
+                             Grid.Row="1"
+                             FontSize="25"
+                             Margin="40,0,39.6,0" Padding="40 0 5 0"
+                             BorderBrush="Black" BorderThickness="1.5"
+                             Background="LightGray" Foreground="White"
+                             HorizontalAlignment="Center" VerticalAlignment="Center"
+                             HorizontalContentAlignment="Right" VerticalContentAlignment="Center">00 kN</TextBox>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" 
+                          BorderBrush="Black" BorderThickness="2"
+                          Padding="2" Margin="5">
+                    <!--Articulation Angle 그리드-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition Height="0.1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" 
+                               FontSize="25" FontWeight="Bold">-Articulation Angle</Label>
+
+                        <!--방향 + 결과 가로 그리드-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.6*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--up, down 버튼 가로 그리드-->
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0"
+                                            Margin="10 5"
+                                            BorderBrush="Black" 
+                                            VerticalAlignment="Center"
+                                            Background="SkyBlue" Foreground="White" 
+                                            FontSize="25">Up</Button>
+                                <Button Grid.Column="1" 
+                                            Margin="10 5"
+                                            BorderBrush="Black" 
+                                            VerticalAlignment="Center"
+                                            Background="SkyBlue" Foreground="White" 
+                                            FontSize="25">Down</Button>
+                            </Grid>
+
+                            <!--right, left 버튼 가로 그리드-->
+                            <Grid Grid.Column="0" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0"
+                                            Margin="10 5"
+                                            BorderBrush="Black" 
+                                            VerticalAlignment="Center"
+                                            Background="SkyBlue" Foreground="White" 
+                                            FontSize="25">Right</Button>
+                                <Button Grid.Column="1" 
+                                            Margin="10 5"
+                                            BorderBrush="Black" 
+                                            VerticalAlignment="Center"
+                                            Background="SkyBlue" Foreground="White" 
+                                            FontSize="25">Left</Button>
+                            </Grid>
+
+                            <TextBox Grid.Column="1" Grid.RowSpan="2"
+                                     Margin="10 0"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     BorderBrush="Black" BorderThickness="1.5"
+                                     FontSize="25"
+                                     Background="LightGray" Foreground="White">
+                                00.0º
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.6*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1" 
+                                        BorderBrush="Black"
+                                        Background="SkyBlue" Foreground="White"
+                                        VerticalAlignment="Center"
+                                        FontSize="25">
+                                    Angle</Button>
+                            </Grid>
+
+                            <TextBox Grid.Column="1" Grid.RowSpan="2"
+                                     Margin="10 0"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     BorderBrush="Black" BorderThickness="1.5"
+                                     FontSize="25"
+                                     Background="LightGray" Foreground="White">
+                                000.0º
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.RowSpan="2" 
+                                       FontSize="25" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       >-Jack<LineBreak />Force
+                            </TextBlock>
+
+                            <TextBlock Grid.Column="1" Grid.Row="0" 
+                                       FontSize="25" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       >Right
+                            </TextBlock>
+
+                            <TextBlock Grid.Column="1" Grid.Row="1" 
+                                       FontSize="25" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       >Left
+                            </TextBlock>
+
+                            <TextBox Grid.Column="2" Grid.Row="0"
+                                     Margin="10 0"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     BorderBrush="Black" BorderThickness="1.5"
+                                     FontSize="40"
+                                     Background="LightGray" Foreground="White">
+                                00kN
+                            </TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="1"
+                                     Margin="10 0"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     BorderBrush="Black" BorderThickness="1.5"
+                                     FontSize="40"
+                                     Background="LightGray" Foreground="White">
+                                00kN
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="2" 
+                                Background="SkyBlue" Foreground="White" 
+                                FontSize="25"
+                                    VerticalAlignment="Center" 
+                                Padding="10 0">
+                                SEND
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+            </Grid>
+            <Grid Grid.Row="1" ShowGridLines="False">
+                <Image Source="./Excavation.png" Stretch="Uniform"/>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Window>
