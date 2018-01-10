@@ -28,25 +28,25 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0"
-                          BorderBrush="Black" BorderThickness="2"
-                          Padding="2"
-                          Margin="5">
+                            BorderBrush="Black" BorderThickness="2"
+                            Padding="2"
+                            Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.4*"/>
                                 <RowDefinition Height="0.6*"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" 
-                           VerticalAlignment="Center"
-                           FontSize="25" FontWeight="Bold">-Auto Control Set(Straight)</Label>
+                                   VerticalAlignment="Center"
+                                   FontSize="25" FontWeight="Bold">-Auto Control Set(Straight)</Label>
                             <TextBox x:Name="AutoControlBox" 
-                             Grid.Row="1"
-                             FontSize="25"
-                             Margin="40,0,39.6,0" Padding="40 0 5 0"
-                             BorderBrush="Black" BorderThickness="1.5"
-                             Background="LightGray" Foreground="White"
-                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                             HorizontalContentAlignment="Right" VerticalContentAlignment="Center">00 kN</TextBox>
+                                     Grid.Row="1"
+                                     FontSize="25"
+                                     Margin="40,0,39.6,0" Padding="40 0 5 0"
+                                     BorderBrush="Black" BorderThickness="1.5"
+                                     Background="LightGray" Foreground="White"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Right" VerticalContentAlignment="Center">00 kN</TextBox>
                         </Grid>
                     </Border>
 
@@ -84,18 +84,20 @@
                                         <ColumnDefinition Width="0.5*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0"
+                                    <Button x:Uid="0"
+                                            Grid.Column="0"
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25">Up</Button>
-                                    <Button Grid.Column="1" 
+                                            FontSize="25" Click="LPButton_Clicked" >Up</Button>
+                                    <Button x:Uid="1"
+                                            Grid.Column="1" 
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25">Down</Button>
+                                            FontSize="25" Click="LPButton_Clicked">Down</Button>
                                 </Grid>
 
                                 <!--right, left 버튼 가로 그리드-->
@@ -105,27 +107,29 @@
                                         <ColumnDefinition Width="0.5*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0"
+                                    <Button x:Uid="2"
+                                            Grid.Column="0"
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25">Right</Button>
-                                    <Button Grid.Column="1" 
+                                            FontSize="25" Click="LPButton_Clicked">Right</Button>
+                                    <Button x:Uid="3"
+                                            Grid.Column="1" 
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25">Left</Button>
+                                            FontSize="25" Click="LPButton_Clicked">Left</Button>
                                 </Grid>
 
-                                <TextBox Grid.Column="1" Grid.RowSpan="2"
-                                     Margin="10 0"
-                                     VerticalAlignment="Center"
-                                     HorizontalContentAlignment="Center"
-                                     BorderBrush="Black" BorderThickness="1.5"
-                                     FontSize="25"
-                                     Background="LightGray" Foreground="White">
+                                <TextBox x:Name="AAText_1"
+                                         Grid.Column="1" Grid.RowSpan="2"
+                                         Margin="10 0" VerticalAlignment="Center"
+                                         HorizontalContentAlignment="Center"
+                                         BorderBrush="Black" BorderThickness="1.5"
+                                         FontSize="25"
+                                         Background="LightGray" Foreground="White">
                                     00.0º
                                 </TextBox>
                             </Grid>
@@ -141,21 +145,23 @@
                                         <ColumnDefinition Width="0.3*"/>
                                         <ColumnDefinition Width="0.2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="1" 
-                                        BorderBrush="Black"
-                                        Background="SkyBlue" Foreground="White"
-                                        VerticalAlignment="Center"
-                                        FontSize="25">
+                                    <Button x:Uid="4" 
+                                            Grid.Column="1" 
+                                            BorderBrush="Black"
+                                            Background="SkyBlue" Foreground="White"
+                                            VerticalAlignment="Center"
+                                            FontSize="25" Click="LPButton_Clicked">
                                         Angle</Button>
                                 </Grid>
 
-                                <TextBox Grid.Column="1" Grid.RowSpan="2"
-                                     Margin="10 0"
-                                     VerticalAlignment="Center"
-                                     HorizontalContentAlignment="Center"
-                                     BorderBrush="Black" BorderThickness="1.5"
-                                     FontSize="25"
-                                     Background="LightGray" Foreground="White">
+                                <TextBox x:Name="AAText_2"
+                                         Grid.Column="1" Grid.RowSpan="2"
+                                         Margin="10 0"
+                                         VerticalAlignment="Center"
+                                         HorizontalContentAlignment="Center"
+                                         BorderBrush="Black" BorderThickness="1.5"
+                                         FontSize="25"
+                                         Background="LightGray" Foreground="White">
                                     000.0º
                                 </TextBox>
                             </Grid>
@@ -185,27 +191,29 @@
                                 </TextBlock>
 
                                 <TextBlock Grid.Column="1" Grid.Row="1" 
-                                       FontSize="25" FontWeight="Bold"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       >Left
+                                           FontSize="25" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Left
                                 </TextBlock>
 
-                                <TextBox Grid.Column="2" Grid.Row="0"
-                                     Margin="10 0"
-                                     VerticalAlignment="Center"
-                                     HorizontalContentAlignment="Center"
-                                     BorderBrush="Black" BorderThickness="1.5"
-                                     FontSize="40"
-                                     Background="LightGray" Foreground="White">
+                                <TextBox x:Name="JRText"
+                                         Grid.Column="2" Grid.Row="0"
+                                         Margin="10 0"
+                                         VerticalAlignment="Center"
+                                         HorizontalContentAlignment="Center"
+                                         BorderBrush="Black" BorderThickness="1.5"
+                                         FontSize="40"
+                                         Background="LightGray" Foreground="White">
                                     00kN
                                 </TextBox>
-                                <TextBox Grid.Column="2" Grid.Row="1"
-                                     Margin="10 0"
-                                     VerticalAlignment="Center"
-                                     HorizontalContentAlignment="Center"
-                                     BorderBrush="Black" BorderThickness="1.5"
-                                     FontSize="40"
-                                     Background="LightGray" Foreground="White">
+                                <TextBox x:Name="JLText"
+                                         Grid.Column="2" Grid.Row="1"
+                                         Margin="10 0"
+                                         VerticalAlignment="Center"
+                                         HorizontalContentAlignment="Center"
+                                         BorderBrush="Black" BorderThickness="1.5"
+                                         FontSize="40"
+                                         Background="LightGray" Foreground="White">
                                     00kN
                                 </TextBox>
                             </Grid>
@@ -218,11 +226,12 @@
                                     <ColumnDefinition Width="0.2*"/>
                                     <ColumnDefinition Width="0.2*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="2" 
-                                Background="SkyBlue" Foreground="White" 
-                                FontSize="25"
-                                    VerticalAlignment="Center" 
-                                Padding="10 0">
+                                <Button x:Uid="5"
+                                        Grid.Column="2" 
+                                        Background="SkyBlue" Foreground="White" 
+                                        FontSize="25"
+                                        VerticalAlignment="Center" 
+                                        Padding="10 0" Click="LPButton_Clicked">
                                     SEND
                                 </Button>
                             </Grid>
@@ -292,16 +301,20 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                            <Button Grid.Row="0" 
+                            <Button x:Name="HUp" 
+                                    Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
-                            <Button Grid.Row="1" 
+                                    FontSize="14" FontWeight="ExtraBold"
+                                    Click="HUp_Click">▲</Button>
+                            <Button x:Name="HDown" 
+                                    Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+                                    FontSize="14" FontWeight="ExtraBold"
+                                    Click="HDown_Click">▼</Button>
 
                         </Grid>
 
@@ -332,14 +345,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="2" 
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1"
+                                Background="Red" Foreground="White" 
+                                Click="HButton_Clicked">RIGHT</Button>
+                        <Button x:Uid="3"
+                                Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="HButton_Clicked">LEFT</Button>
                     </Grid>
 
                     <Grid Grid.Row="4">
@@ -354,14 +371,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="4"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1" 
+                                Background="Red" Foreground="White"
+                                Click="HButton_Clicked">STOP</Button>
+                        <Button x:Uid="5"
+                                Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="HButton_Clicked">START</Button>
                     </Grid>
                 </Grid>
 
@@ -416,16 +437,20 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                            <Button Grid.Row="0" 
+                            <Button x:Uid="0" 
+                                    Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
-                            <Button Grid.Row="1" 
+                                    FontSize="14" FontWeight="ExtraBold" 
+                                    Click="SButton_Clicked">▲</Button>
+                            <Button x:Uid="1"
+                                    Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+                                    FontSize="14" FontWeight="ExtraBold"
+                                    Click="SButton_Clicked">▼</Button>
 
                         </Grid>
 
@@ -455,14 +480,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="2"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1"
+                                Background="Red" Foreground="White"
+                                Click="SButton_Clicked">RIGHT</Button>
+                        <Button x:Uid="3"
+                                Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="SButton_Clicked">LEFT</Button>
                     </Grid>
 
                     <Grid Grid.Row="4">
@@ -477,14 +506,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="4"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1" 
+                                Background="Red" Foreground="White"
+                                Click="SButton_Clicked">STOP</Button>
+                        <Button x:Uid="5"
+                                Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="SButton_Clicked">START</Button>
                     </Grid>
                 </Grid>
 
@@ -539,16 +572,18 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                            <Button Grid.Row="0" 
+                            <Button x:Uid="0" Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
-                            <Button Grid.Row="1" 
+                                    FontSize="14" FontWeight="ExtraBold" 
+                                    Click="CButton_Clicked">▲</Button>
+                            <Button x:Uid="1" Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+                                    FontSize="14" FontWeight="ExtraBold"
+                                    Click="CButton_Clicked">▼</Button>
 
                         </Grid>
 
@@ -580,14 +615,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="2"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1"
+                                Background="Red" Foreground="White"
+                                Click="CButton_Clicked">RIGHT</Button>
+                        <Button x:Uid="3"
+                                Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="CButton_Clicked">LEFT</Button>
                     </Grid>
 
                     <Grid Grid.Row="4">
@@ -602,14 +641,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="4"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1" 
+                                Background="Red" Foreground="White"
+                                Click="CButton_Clicked">STOP</Button>
+                        <Button x:Uid="5"
+                                Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="CButton_Clicked">START</Button>
                     </Grid>
                 </Grid>
 
@@ -665,16 +708,20 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                            <Button Grid.Row="0" 
+                            <Button x:Uid="0"
+                                    Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="14" FontWeight="ExtraBold">▲</Button>
-                            <Button Grid.Row="1" 
+                                    FontSize="14" FontWeight="ExtraBold" 
+                                    Click="EButton_Clicked">▲</Button>
+                            <Button x:Uid="1"
+                                    Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="14" FontWeight="ExtraBold">▼</Button>
+                                    FontSize="14" FontWeight="ExtraBold"
+                                    Click="EButton_Clicked">▼</Button>
 
                         </Grid>
 
@@ -704,14 +751,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold" 
                                Margin="10 0" Padding="0">- Direction.</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="2"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1"
+                                Background="Red" Foreground="White"
+                                Click="EButton_Clicked">ADVANCE</Button>
+                        <Button x:Uid="3"
+                                Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="EButton_Clicked">BACK</Button>
                     </Grid>
 
                     <Grid Grid.Row="4">
@@ -726,14 +777,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="4"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1" 
+                                Background="Red" Foreground="White"
+                                Click="EButton_Clicked">STOP</Button>
+                        <Button x:Uid="5"
+                                Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="EButton_Clicked">START</Button>
                     </Grid>
                     <Grid Grid.Row="5">
                         <Grid.RowDefinitions>
@@ -747,14 +802,18 @@
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Auto / Manual</Label>
-                        <Button Grid.Column="0" Grid.Row="1" 
+                        <Button x:Uid="6"
+                                Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Red" Foreground="White">RIGHT</Button>
-                        <Button Grid.Column="1" Grid.Row="1" 
+                                Background="Red" Foreground="White"
+                                Click="EButton_Clicked">MANUAL</Button>
+                        <Button x:Uid="7"
+                                Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
-                                Background="Green" Foreground="White">LEFT</Button>
+                                Background="Green" Foreground="White"
+                                Click="EButton_Clicked">AUTO</Button>
                     </Grid>
                 </Grid>
 

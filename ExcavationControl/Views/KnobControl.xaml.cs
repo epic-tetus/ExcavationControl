@@ -120,6 +120,7 @@ namespace ExcavationControl.Views
             do
             {
                 current = VisualTreeHelper.GetParent(current) as FrameworkElement;
+
                 if (current is T)
                 {
                     return (T)current;

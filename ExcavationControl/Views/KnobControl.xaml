@@ -29,7 +29,7 @@
                 <ImageBrush ImageSource="../Assets/Tick_1.png"/>
             </Ellipse.Fill>
         </Ellipse>
-        <Slider Name="knob" Grid.Column="1" Grid.Row="1" Margin="5" Minimum="0" Maximum="120" ValueChanged="knob_ValueChanged">
+        <Slider Name="knob" Grid.Column="1" Grid.Row="1" Margin="6" Minimum="0" Maximum="120" ValueChanged="knob_ValueChanged">
             <Slider.Template>
                 <ControlTemplate>
                     <Viewbox>
@@ -42,6 +42,9 @@
                             <Canvas>
                                 <Line Stroke="White" StrokeThickness="10" X1="150" Y1="150" X2="150" Y2="10"
                                       MouseLeftButtonUp="Ellipse_MouseLeftButtonUp"/>
+                                <Rectangle Fill="Transparent" Width="30" Height="140" Canvas.Left="135" Canvas.Top="5"
+                                           MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"
+                                           MouseLeftButtonUp="Ellipse_MouseLeftButtonUp"/>
                                 <Rectangle Fill="White" Width="10" Height="140" Canvas.Left="145.000000000000014" Canvas.Top="5" 
                                            MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"
                                            MouseLeftButtonUp="Ellipse_MouseLeftButtonUp">
