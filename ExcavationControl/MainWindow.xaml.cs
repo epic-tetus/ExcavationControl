@@ -28,6 +28,10 @@ namespace ExcavationControl
 
             //Application.Current.MainWindow.WindowState = WindowState.Maximized;
 
+            Application.Current.MainWindow.MinWidth = 300;
+
+            Application.Current.MainWindow.MinHeight = 370;
+
             SettingPage settingPage = new SettingPage();
 
             MainFrame.Navigate(settingPage);

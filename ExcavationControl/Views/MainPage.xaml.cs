@@ -646,11 +646,11 @@ namespace ExcavationControl.Views
                 case "2":
                     Debug.WriteLine("Advance Button");
 
-                    var leftButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+                    var BackButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
 
-                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + BackButton.Uid);
 
-                    ((ToggleButton)leftButton).IsChecked = false;
+                    ((ToggleButton)BackButton).IsChecked = false;
 
                     EModel.Direction = "A";
 
@@ -765,6 +765,8 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
+
+
 
                     break;
 

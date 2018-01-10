@@ -7,13 +7,14 @@
       xmlns:knob="clr-namespace:ExcavationControl.Views"
       mc:Ignorable="d" 
       MinHeight="720" MinWidth="1280"
+      MaxHeight="720" MaxWidth="1280"
       Title="MainPage" Background="White">
 
     <Grid>
         <DockPanel>
 
             <!--설정 부분-->
-            
+
             <Grid ShowGridLines="False" DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
@@ -95,13 +96,13 @@
                                                   VerticalAlignment="Center"
                                                   Background="SkyBlue" Foreground="White" 
                                                   FontSize="25" Click="RPButton_Clicked" >Up</ToggleButton>
-                                    <Button x:Uid="1"
-                                            Grid.Column="1" 
-                                            Margin="10 5"
-                                            BorderBrush="Black" 
-                                            VerticalAlignment="Center"
-                                            Background="SkyBlue" Foreground="White" 
-                                            FontSize="25" Click="LPButton_Clicked">Down</Button>
+                                    <ToggleButton x:Uid="1" 
+                                                  Grid.Column="1" 
+                                                  Margin="10 5" 
+                                                  BorderBrush="Black" 
+                                                  VerticalAlignment="Center" 
+                                                  Background="SkyBlue" Foreground="White" 
+                                                  FontSize="25" Click="RPButton_Clicked">Down</ToggleButton>
                                 </Grid>
 
                                 <!--right, left 버튼 가로 그리드-->
@@ -111,20 +112,20 @@
                                         <ColumnDefinition Width="0.5*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button x:Uid="2"
+                                    <ToggleButton x:Uid="2"
                                             Grid.Column="0"
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25" Click="LPButton_Clicked">Right</Button>
-                                    <Button x:Uid="3"
+                                            FontSize="25" Click="RPButton_Clicked">Right</ToggleButton>
+                                    <ToggleButton x:Uid="3"
                                             Grid.Column="1" 
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25" Click="LPButton_Clicked">Left</Button>
+                                            FontSize="25" Click="RPButton_Clicked">Left</ToggleButton>
                                 </Grid>
 
                                 <TextBox x:Name="AAText_1"
@@ -163,12 +164,12 @@
                                             BorderBrush="Black"
                                             Background="SkyBlue" Foreground="White"
                                             VerticalAlignment="Center"
-                                            FontSize="25" Click="LPButton_Clicked">
+                                            FontSize="25" Click="RPButton_Clicked">
                                         Angle</Button>
                                 </Grid>
 
                                 <TextBox x:Name="AAText_3"
-                                         Grid.Column="1" Grid.RowSpan="2"
+                                       Grid.Column="1" Grid.RowSpan="2"
                                          Margin="10 0"
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
@@ -244,7 +245,7 @@
                                         Background="SkyBlue" Foreground="White" 
                                         FontSize="25"
                                         VerticalAlignment="Center" 
-                                        Padding="10 0" Click="LPButton_Clicked">
+                                        Padding="10 0" Click="RPButton_Clicked">
                                     SEND
                                 </Button>
                             </Grid>
@@ -255,65 +256,71 @@
             </Grid>
 
             <!--노브 부분-->
-
-            <Grid Grid.Row="0" ShowGridLines="False" DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.175*"/>
-                    <ColumnDefinition Width="0.175*"/>
-                    <ColumnDefinition Width="0.175*"/>
-                    <ColumnDefinition Width="0.175*"/>
-                </Grid.ColumnDefinitions>
+            <Grid DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
 
 
-                <!--Head Cutter 노브 그리드-->
+                <Grid Grid.Row="0" ShowGridLines="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.175*"/>
+                        <ColumnDefinition Width="0.175*"/>
+                        <ColumnDefinition Width="0.175*"/>
+                        <ColumnDefinition Width="0.175*"/>
+                    </Grid.ColumnDefinitions>
 
 
-                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2">
-                    <Grid x:Name="HCGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.6*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.10*"/>
-                            <RowDefinition Height="0.10*"/>
-                        </Grid.RowDefinitions>
+                    <!--Head Cutter 노브 그리드-->
 
-                        <Label Background="Black" Foreground="White" 
+
+                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2">
+                        <Grid x:Name="HCGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                            FontSize="25" FontWeight="Bold">Head Cutter</Label>
 
-                        <Label Grid.Row="1" 
+                            <Label Grid.Row="1" 
                            FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
-                        <knob:KnobControl x:Name="HCKnob" 
+                            <knob:KnobControl x:Name="HCKnob" 
                                       Grid.Row="1"
                                       Width="Auto"
                                       VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <knob:KnobControl.LayoutTransform>
-                                <RotateTransform Angle="210"/>
-                            </knob:KnobControl.LayoutTransform>
-                        </knob:KnobControl>
+                                <knob:KnobControl.LayoutTransform>
+                                    <RotateTransform Angle="210"/>
+                                </knob:KnobControl.LayoutTransform>
+                            </knob:KnobControl>
 
-                        <Grid Background="Yellow" Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.05*"/>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.15*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
+                            <Grid Background="Yellow" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
                                    FontSize="16" FontWeight="Bold"
                                    HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="0.5*"/>
-                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                    </Grid.RowDefinitions>
 
-                                <!--<Button Grid.Row="0" 
+                                    <!--<Button Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">△</Button>
@@ -321,14 +328,14 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                                <Button x:Name="HUp" 
+                                    <Button x:Name="HUp" 
                                     Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
                                     FontSize="16" FontWeight="ExtraBold"
                                     Click="HUp_Click">▲</Button>
-                                <Button x:Name="HDown" 
+                                    <Button x:Name="HDown" 
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
@@ -336,126 +343,126 @@
                                     FontSize="16" FontWeight="ExtraBold"
                                     Click="HDown_Click">▼</Button>
 
-                            </Grid>
+                                </Grid>
 
-                            <TextBox x:Name="HText"
+                                <TextBox x:Name="HText"
                                  Grid.Column="2"
                                  FontSize="16" FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                0
-                            </TextBox>
+                                    0
+                                </TextBox>
 
-                            <Label Grid.Column="3"
+                                <Label Grid.Column="3"
                                FontWeight="Bold"
                                VerticalAlignment="Center">%</Label>
 
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                            <ToggleButton x:Uid="2" 
+                                <ToggleButton x:Uid="2" 
                                           Grid.Column="0" Grid.Row="1"
                                           Margin="10 0 5 5"
                                           FontSize="20" FontWeight="Bold"
                                           Background="Red" Foreground="White" 
                                           Checked="HButton_Clicked">RIGHT</ToggleButton>
-                            <ToggleButton x:Uid="3"
+                                <ToggleButton x:Uid="3"
                                           Grid.Column="1" Grid.Row="1"
                                           Margin="5 0 10 5"
                                           FontSize="20" FontWeight="Bold"
                                           Background="Green" Foreground="White"
                                           Checked="HButton_Clicked">LEFT</ToggleButton>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                            <ToggleButton x:Uid="4"
+                                <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="HButton_Clicked">STOP</ToggleButton>
-                            <ToggleButton x:Uid="5"
+                                <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="HButton_Clicked">START</ToggleButton>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
+                    </Border>
 
-                
-                <!--Screw Conveyer 노브 그리드-->
-                
-                
-                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
-                    <Grid x:Name="SCGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.6*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.10*"/>
-                            <RowDefinition Height="0.10*"/>
-                        </Grid.RowDefinitions>
 
-                        <Label Background="Black" Foreground="White" 
+                    <!--Screw Conveyer 노브 그리드-->
+
+
+                    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+                        <Grid x:Name="SCGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.10*"/>
+                                <RowDefinition Height="0.10*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                            FontSize="25" FontWeight="Bold">Screw Conveyer</Label>
 
-                        <Label Grid.Row="1" 
+                            <Label Grid.Row="1" 
                            FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
-                        <knob:KnobControl x:Name="SCKnob" 
+                            <knob:KnobControl x:Name="SCKnob" 
                                   Grid.Row="1" Width="Auto"
                                   VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <knob:KnobControl.LayoutTransform>
-                                <RotateTransform Angle="210"/>
-                            </knob:KnobControl.LayoutTransform>
-                        </knob:KnobControl>
+                                <knob:KnobControl.LayoutTransform>
+                                    <RotateTransform Angle="210"/>
+                                </knob:KnobControl.LayoutTransform>
+                            </knob:KnobControl>
 
-                        <Grid Background="Yellow" Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.05*"/>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.15*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
+                            <Grid Background="Yellow" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
                                FontSize="16" FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="0.5*"/>
-                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                    </Grid.RowDefinitions>
 
-                                <!--<Button Grid.Row="0" 
+                                    <!--<Button Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">△</Button>
@@ -463,14 +470,14 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                                <Button x:Uid="0" 
+                                    <Button x:Uid="0" 
                                     Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
                                     FontSize="16" FontWeight="ExtraBold" 
                                     Click="SButton_Clicked">▲</Button>
-                                <Button x:Uid="1"
+                                    <Button x:Uid="1"
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
@@ -478,125 +485,125 @@
                                     FontSize="16" FontWeight="ExtraBold"
                                     Click="SButton_Clicked">▼</Button>
 
-                            </Grid>
+                                </Grid>
 
-                            <TextBox x:Name="SText"
+                                <TextBox x:Name="SText"
                                  Grid.Column="2"
                                  FontSize="16" FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                0
-                            </TextBox>
+                                    0
+                                </TextBox>
 
-                            <Label Grid.Column="3"
+                                <Label Grid.Column="3"
                                FontWeight="Bold"
                                VerticalAlignment="Center">%</Label>
 
-                        </Grid>
-                        <Grid Grid.Row="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                            <ToggleButton x:Uid="2"
+                                <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="SButton_Clicked">RIGHT</ToggleButton>
-                            <ToggleButton x:Uid="3"
+                                <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="SButton_Clicked">LEFT</ToggleButton>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                            <ToggleButton x:Uid="4"
+                                <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="SButton_Clicked">STOP</ToggleButton>
-                            <ToggleButton x:Uid="5"
+                                <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="SButton_Clicked">START</ToggleButton>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
+                    </Border>
 
 
-                <!--Conveyor Belt 노브 그리드-->
+                    <!--Conveyor Belt 노브 그리드-->
 
 
-                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2">
-                    <Grid Grid.Column="2" x:Name="CBGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.6*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.10*"/>
-                            <RowDefinition Height="0.10*"/>
-                        </Grid.RowDefinitions>
+                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2">
+                        <Grid Grid.Column="2" x:Name="CBGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.10*"/>
+                                <RowDefinition Height="0.10*"/>
+                            </Grid.RowDefinitions>
 
-                        <Label Background="Black" Foreground="White" 
+                            <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                            FontSize="25" FontWeight="Bold">Conveyor Belt</Label>
 
-                        <Label Grid.Row="1" 
+                            <Label Grid.Row="1" 
                            FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
-                        <knob:KnobControl x:Name="CBKnob" 
+                            <knob:KnobControl x:Name="CBKnob" 
                               Grid.Row="1" Width="Auto"
                               VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <knob:KnobControl.LayoutTransform>
-                                <RotateTransform Angle="210"/>
-                            </knob:KnobControl.LayoutTransform>
-                        </knob:KnobControl>
+                                <knob:KnobControl.LayoutTransform>
+                                    <RotateTransform Angle="210"/>
+                                </knob:KnobControl.LayoutTransform>
+                            </knob:KnobControl>
 
-                        <Grid Background="Yellow" Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.05*"/>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.15*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
+                            <Grid Background="Yellow" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
                                FontSize="16" FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="0.5*"/>
-                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                    </Grid.RowDefinitions>
 
-                                <!--<Button Grid.Row="0" 
+                                    <!--<Button Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">△</Button>
@@ -604,141 +611,141 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                                <Button x:Uid="0" Grid.Row="0" 
+                                    <Button x:Uid="0" Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
                                     FontSize="16" FontWeight="ExtraBold" 
                                     Click="CButton_Clicked">▲</Button>
-                                <Button x:Uid="1" Grid.Row="1" 
+                                    <Button x:Uid="1" Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
                                     FontSize="16" FontWeight="ExtraBold"
                                     Click="CButton_Clicked">▼</Button>
 
-                            </Grid>
+                                </Grid>
 
-                            <TextBox x:Name="CText"
+                                <TextBox x:Name="CText"
                                  Grid.Column="2"
                                  FontSize="16" FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                0
-                            </TextBox>
+                                    0
+                                </TextBox>
 
-                            <Label Grid.Column="3"
+                                <Label Grid.Column="3"
                                FontWeight="Bold"
                                VerticalAlignment="Center">%</Label>
 
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="3" x:Name="EXGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="3" x:Name="EXGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Grid.Row="0" 
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Direction.</Label>
-                            <ToggleButton x:Uid="2"
+                                <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="CButton_Clicked">RIGHT</ToggleButton>
-                            <ToggleButton x:Uid="3"
+                                <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="CButton_Clicked">LEFT</ToggleButton>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                            <ToggleButton x:Uid="4"
+                                <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="CButton_Clicked">STOP</ToggleButton>
-                            <ToggleButton x:Uid="5"
+                                <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="CButton_Clicked">START</ToggleButton>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
+                    </Border>
 
 
-                <!--Excavation 노브 그리드-->
-                
-                
-                <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2">
-                    <Grid Grid.Column="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.6*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0.15*"/>
-                            <RowDefinition Height="0.15*"/>
-                            <RowDefinition Height="0.15*"/>
-                        </Grid.RowDefinitions>
+                    <!--Excavation 노브 그리드-->
 
-                        <Label Background="Black" Foreground="White" 
+
+                    <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2">
+                        <Grid Grid.Column="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.6*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0.15*"/>
+                                <RowDefinition Height="0.15*"/>
+                                <RowDefinition Height="0.15*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                            FontSize="25" FontWeight="Bold">Excavation</Label>
 
-                        <Label Grid.Row="1" 
+                            <Label Grid.Row="1" 
                            FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
-                        <knob:KnobControl x:Name="EXKnob" 
+                            <knob:KnobControl x:Name="EXKnob" 
                               Grid.Row="1" Width="Auto"
                               VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <knob:KnobControl.LayoutTransform>
-                                <RotateTransform Angle="210"/>
-                            </knob:KnobControl.LayoutTransform>
-                        </knob:KnobControl>
+                                <knob:KnobControl.LayoutTransform>
+                                    <RotateTransform Angle="210"/>
+                                </knob:KnobControl.LayoutTransform>
+                            </knob:KnobControl>
 
-                        <Grid Background="Yellow" Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.05*"/>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition Width="0.15*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
+                            <Grid Background="Yellow" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
                                FontSize="16" FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="0.5*"/>
-                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                    </Grid.RowDefinitions>
 
-                                <!--<Button Grid.Row="0" 
+                                    <!--<Button Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">△</Button>
@@ -746,14 +753,14 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     FontSize="10" FontWeight="ExtraBold">▽</Button>-->
-                                <Button x:Uid="0"
+                                    <Button x:Uid="0"
                                     Grid.Row="0" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
                                     FontSize="16" FontWeight="ExtraBold" 
                                     Click="EButton_Clicked">▲</Button>
-                                <Button x:Uid="1"
+                                    <Button x:Uid="1"
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
@@ -761,110 +768,113 @@
                                     FontSize="16" FontWeight="ExtraBold"
                                     Click="EButton_Clicked">▼</Button>
 
-                            </Grid>
+                                </Grid>
 
-                            <TextBox x:Name="EText"
+                                <TextBox x:Name="EText"
                                  Grid.Column="2"
                                  FontSize="16" FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                0
-                            </TextBox>
+                                    0
+                                </TextBox>
 
-                            <Label Grid.Column="3"
+                                <Label Grid.Column="3"
                                FontWeight="Bold"
                                VerticalAlignment="Center">%</Label>
 
-                        </Grid>
-                        <Grid Grid.Row="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold" 
                                Margin="10 0" Padding="0">- Direction.</Label>
-                            <ToggleButton x:Uid="2"
+                                <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">ADVANCE</ToggleButton>
-                            <ToggleButton x:Uid="3"
+                                <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">BACK</ToggleButton>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
                                Margin="10 0" Padding="0">- Start / Stop</Label>
-                            <ToggleButton x:Uid="4"
+                                <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">STOP</ToggleButton>
-                            <ToggleButton x:Uid="5"
+                                <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">START</ToggleButton>
-                        </Grid>
-                        <Grid Grid.Row="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.3*"/>
-                                <RowDefinition Height="0.7*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition Width="0.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Auto / Manual</Label>
-                            <ToggleButton x:Uid="6"
+                            </Grid>
+                            <Grid Grid.Row="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.7*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" 
+                                   FontWeight="Bold"
+                                   Margin="10 0" Padding="0">- Auto / Manual</Label>
+                                <ToggleButton x:Uid="6"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">MANUAL</ToggleButton>
-                            <ToggleButton x:Uid="7"
+                                <ToggleButton x:Uid="7"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
                                 FontSize="20" FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">AUTO</ToggleButton>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-                
-                
+                    </Border>
+                </Grid>
+
+                <!--출력 화면-->
+
+                <Grid Grid.Row="1" ShowGridLines="False" DockPanel.Dock="Bottom" Margin="0 5 0 0">
+                    <Image Source="../Assets/Excavation.png" Stretch="Uniform"/>
+                </Grid>
 
             </Grid>
 
-            <!--출력 화면-->
-            
-            <Grid Grid.Row="1" ShowGridLines="False" DockPanel.Dock="Bottom" Margin="0 5 0 0">
-                <Image Source="../Assets/Excavation.png" Stretch="Uniform"/>
-            </Grid>
+
+
+
 
         </DockPanel>
     </Grid>

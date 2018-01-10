@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:ExcavationControl"
         xmlns:knob="clr-namespace:ExcavationControl.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="370">
+        Title="MainWindow" Height="300" Width="370"
+        MinWidth="1280" MinHeight="720">
     <Grid>
         <Frame x:Name="MainFrame"
-               Margin="5"
+               Padding="10"
                NavigationUIVisibility="Hidden">
 
         </Frame>
