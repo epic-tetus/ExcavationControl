@@ -1,0 +1,155 @@
+﻿'ExcavationControl.exe'(CLR v4.0.30319: DefaultDomain): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: DefaultDomain): 'C:\Users\SEG4\Source\Repos\ExcavationControl\ExcavationControl\bin\Debug\ExcavationControl.exe'을(를) 로드했습니다. 기호가 로드되었습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\PresentationFramework\v4.0_4.0.0.0__31bf3856ad364e35\PresentationFramework.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\WindowsBase\v4.0_4.0.0.0__31bf3856ad364e35\WindowsBase.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_32\PresentationCore\v4.0_4.0.0.0__31bf3856ad364e35\PresentationCore.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\common7\ide\PrivateAssemblies\Runtime\Microsoft.VisualStudio.Debugger.Runtime.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+한 단계씩 코드 실행: 사용자 코드가 아닌 코드 'ExcavationControl.App..ctor'을(를) 건너뜁니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+한 단계씩 코드 실행: 사용자 코드가 아닌 코드 'ExcavationControl.App.InitializeComponent'을(를) 건너뜁니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\mscorlib.resources\v4.0_4.0.0.0_ko_b77a5c561934e089\mscorlib.resources.dll'을(를) 로드했습니다. 모듈이 기호 없이 빌드되었습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\PresentationFramework.Aero2\v4.0_4.0.0.0__31bf3856ad364e35\PresentationFramework.Aero2.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\PresentationFramework.resources\v4.0_4.0.0.0_ko_31bf3856ad364e35\PresentationFramework.resources.dll'을(를) 로드했습니다. 모듈이 기호 없이 빌드되었습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\PresentationFramework-SystemXml\v4.0_4.0.0.0__b77a5c561934e089\PresentationFramework-SystemXml.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+_BaudRate : 115200
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\UIAutomationTypes\v4.0_4.0.0.0__31bf3856ad364e35\UIAutomationTypes.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+_DataBits : 8
+_Parity None
+_StopBits One
+_FlowControl None
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\PresentationCore.resources\v4.0_4.0.0.0_ko_31bf3856ad364e35\PresentationCore.resources.dll'을(를) 로드했습니다. 모듈이 기호 없이 빌드되었습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\Users\SEG4\AppData\Local\Temp\VisualStudio.XamlDiagnostics.13580\Microsoft.VisualStudio.DesignTools.WpfTap.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Internals\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Internals.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization.resources\v4.0_4.0.0.0_ko_b77a5c561934e089\System.Runtime.Serialization.resources.dll'을(를) 로드했습니다. 모듈이 기호 없이 빌드되었습니다.
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\UIAutomationProvider\v4.0_4.0.0.0__31bf3856ad364e35\UIAutomationProvider.dll'을(를) 로드했습니다. 기호를 로드하지 않고 건너뛰었습니다. 모듈이 최적화되어 있고 '내 코드만' 디버거 옵션을 사용하도록 설정되어 있습니다.
+Clicked
+0x31d0 스레드가 종료되었습니다(코드: 0 (0x0)).
+Available Port : COM4
+'ExcavationControl.exe'(CLR v4.0.30319: ExcavationControl.exe): 'C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll'을(를) 로드했습니다. PDB 파일을 찾거나 열 수 없습니다.
+포트열기 성공!
+Down Button
+r:130.116294253751,y:20.9445084211675,angle:0.127779727310524.
+노브값 : 2.44041302740852
+
+r:119.487684157297,y:34.4927090477298,angle:0.258838844617053.
+노브값 : 4.94345779019988
+
+r:109.138573374803,y:49.3790887239952,angle:0.397696615110487.
+노브값 : 7.59544585748988
+
+r:98.8816485614009,y:67.2523520288217,angle:0.57931977008425.
+노브값 : 11.0641926047722
+
+r:96.5812562932933,y:79.1518480765259,angle:0.747250807604605.
+노브값 : 14.271439171162
+
+r:92.9392289303354,y:94.2175097506393,angle:0.927040283894965.
+노브값 : 17.7051652352637
+
+r:92.4000742620378,y:108.124274372898,angle:1.10044428168735.
+노브값 : 21.0169376433302
+
+r:94.6233345733776,y:122.031038995156,angle:1.27073157168886.
+노브값 : 24.2691853172658
+
+r:96.9452315983802,y:137.275982667118,angle:1.43916700535081.
+노브값 : 27.486065140361
+
+r:100.010514286233,y:152.031118812076,angle:1.59110677592685.
+노브값 : 30.387901005092
+
+r:101.274549474134,y:167.634626479734,angle:1.74581541163968.
+노브값 : 33.342618298616
+
+r:98.3267260578445,y:182.437801091233,angle:1.90699196750707.
+노브값 : 36.4208637678348
+
+r:93.2278366150264,y:195.10246359687,angle:2.07577356203305.
+노브값 : 39.6443547764437
+
+r:90.5745880655561,y:208.436215627359,angle:2.27204510583836.
+노브값 : 43.3928651426309
+
+r:88.8879344430586,y:219.452173554138,angle:2.4676149000744.
+노브값 : 47.1279730792865
+
+r:87.9275304522489,y:227.481247852355,angle:2.64917909084967.
+노브값 : 50.5955936933302
+
+r:89.8730471609771,y:235.510322150573,angle:2.8287313368491.
+노브값 : 54.0247889926176
+
+r:94.5452636214936,y:243.539396448791,angle:2.99559320411026.
+노브값 : 57.2116159111965
+
+r:102.936288152422,y:252.906649796711,angle:3.1175950309372.
+노브값 : 60.4583208321137
+
+r:109.020255166323,y:257.459032939365,angle:2.97215364367139.
+노브값 : 63.2360467177332
+
+r:110.565051884839,y:255.368559300044,angle:2.83378668878282.
+노브값 : 65.878660897464
+
+r:110.423522809307,y:249.62211250731,angle:2.69559781001922.
+노브값 : 68.5178740737304
+
+r:110.578179761577,y:242.04767913787,angle:2.55425999275063.
+노브값 : 71.2172275454242
+
+r:111.221159873708,y:232.645259191724,angle:2.40844459092738.
+노브값 : 74.0020965829164
+
+r:109.990689269778,y:220.076673619168,angle:2.26154523555233.
+노브값 : 76.8076676083107
+
+r:108.461499465763,y:205.011011945055,angle:2.10272202574261.
+노브값 : 79.8409674785831
+
+r:109.704632709045,y:189.945350270941,angle:1.94348115027659.
+노브값 : 82.882244175307
+
+r:113.629135526213,y:174.879688596828,angle:1.79153987226395.
+노브값 : 85.7841088299564
+
+r:119.406240693852,y:160.972923974569,angle:1.66282189404551.
+노브값 : 88.2424411297474
+
+r:127.664773446468,y:145.907262300456,angle:1.53873235987289.
+노브값 : 90.6123766596926
+
+r:136.585218259711,y:130.172511101491,angle:1.42511588176178.
+노브값 : 92.7822915526617
+
+r:142.289310279703,y:112.920298854975,angle:1.30715920347475.
+노브값 : 95.0350981630715
+
+r:145.845874684524,y:98.4756882391725,angle:1.20972232464239.
+노브값 : 96.8960054717455
+
+r:145.214977894605,y:95.9786121376147,angle:1.18962309619546.
+노브값 : 97.2798724589049
+
+r:145.452490558651,y:94.1506255609083,angle:1.17670440871917.
+노브값 : 97.5266012153182
+
+r:145.714196656244,y:92.3226389842019,angle:1.16382998328646.
+노브값 : 97.7724846289683
+
+r:145.999966086677,y:90.4946524074956,angle:1.15100383745488.
+노브값 : 98.0174459701579
+
+r:145.218434295824,y:89.8255628826441,angle:1.14354378119974.
+노브값 : 98.1599225496078
+
+r:145.984504132377,y:75.0223882711451,angle:1.03142135716905.
+노브값 : 100.301303111519
+
+Up Button
+'[13580] ExcavationControl.exe' 프로그램이 종료되었습니다(코드: 0 (0x0)).

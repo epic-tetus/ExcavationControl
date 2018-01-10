@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,13 @@ namespace ExcavationControl.Views
     /// </summary>
     public partial class MainPage : Page
     {
-        public MainPage()
+        SerialPort _Serial;
+        public MainPage(SerialPort serial)
         {
             InitializeComponent();
+
+            _Serial = serial;
+            _Serial.DataReceived += _Serial_DataReceived;
 
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
 
@@ -32,6 +37,40 @@ namespace ExcavationControl.Views
             CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
             EXKnob.knob.ValueChanged += EXKnob_ValueChanged;
         }
+
+        #region 사용자 지정 함수
+        private void CommandWrite(string command)
+        {
+            try
+            {
+                byte[] ConvertedString = Encoding.Default.GetBytes(command + "\r");
+
+                byte[] STX = new byte[1] { 0x02 };
+                byte[] ETX = new byte[1] { 0x03 };
+                byte[] CR = new byte[1] { 0x0D };
+                byte[] LF = new byte[1] { 0x0A };
+
+                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(ETX);
+
+                _Serial.Write(result.ToArray(), 0, result.ToArray().Length);
+
+                Debug.WriteLine("전송 성공!");
+            }
+            catch
+            {
+                Debug.WriteLine("전송 실패!");
+            }
+        }
+        #endregion
+
+        #region 시리얼 이벤트 함수
+        private void _Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Debug.WriteLine("받은 데이터 : " + _Serial.ReadExisting());
+        }
+        #endregion
+
+        #region UI 이벤트 함수
 
         private void HCKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -78,6 +117,20 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(HText.Text);
 
+            if ((baseValue + 1) > 100)
+            {
+                MessageBoxImage boxImage = MessageBoxImage.Warning;
+                MessageBoxButton boxButton = MessageBoxButton.OK;
+                MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                string Title = "경고!";
+                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+
+                MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                return;
+            }
+
             HText.Text = (++baseValue).ToString();
         }
 
@@ -85,11 +138,27 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(HText.Text);
 
+            if ((baseValue - 1) < 0)
+            {
+                MessageBoxImage boxImage = MessageBoxImage.Warning;
+                MessageBoxButton boxButton = MessageBoxButton.OK;
+                MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                string Title = "경고!";
+                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+
+                MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                return;
+            }
+
             HText.Text = (--baseValue).ToString();
         }
 
         private void HButton_Clicked(object sender, RoutedEventArgs e)
         {
+            int baseValue = int.Parse(HText.Text);
+
             Button selectedButton = (Button)sender;
             switch (selectedButton.Uid)
             {
@@ -107,6 +176,37 @@ namespace ExcavationControl.Views
 
                 case "5":
                     Debug.WriteLine("Start Button");
+
+                    if (baseValue > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    else if (baseValue < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+
+
                     break;
             }
         }
@@ -120,11 +220,40 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
+                    if( (baseValue+1) > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK ,options: boxOptions);
+
+                        break;
+                    }
+                        
                     SText.Text = (++baseValue).ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
+
+                    if ((baseValue - 1) < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     SText.Text = (--baseValue).ToString();
                     break;
 
@@ -142,6 +271,35 @@ namespace ExcavationControl.Views
 
                 case "5":
                     Debug.WriteLine("Start Button");
+
+                    if (baseValue > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    else if (baseValue < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     break;
             }
         }
@@ -155,11 +313,41 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
+
+                    if ((baseValue + 1) > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     CText.Text = (++baseValue).ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
+
+                    if ((baseValue - 1) < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     CText.Text = (--baseValue).ToString();
                     break;
 
@@ -177,6 +365,35 @@ namespace ExcavationControl.Views
 
                 case "5":
                     Debug.WriteLine("Start Button");
+
+                    if (baseValue > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    else if (baseValue < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     break;
             }
         }
@@ -190,11 +407,41 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
+
+                    if ((baseValue + 1) > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     EText.Text = (++baseValue).ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
+
+                    if ((baseValue - 1) < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     EText.Text = (--baseValue).ToString();
                     break;
 
@@ -212,6 +459,35 @@ namespace ExcavationControl.Views
 
                 case "5":
                     Debug.WriteLine("Start Button");
+
+                    if (baseValue > 100)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    else if (baseValue < 0)
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     break;
             }
         }
@@ -246,5 +522,6 @@ namespace ExcavationControl.Views
                     break;
             }
         }
+        #endregion
     }
 }

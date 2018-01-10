@@ -6,12 +6,14 @@
       xmlns:local="clr-namespace:ExcavationControl.Views"
       xmlns:knob="clr-namespace:ExcavationControl.Views"
       mc:Ignorable="d" 
-      Height="1080" Width="1920" MinHeight="720" MinWidth="1280"
+      MinHeight="720" MinWidth="1280"
       Title="MainPage" Background="White">
 
     <Grid>
         <DockPanel>
 
+            <!--설정 부분-->
+            
             <Grid ShowGridLines="False" DockPanel.Dock="Right">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
@@ -242,6 +244,8 @@
 
                 </Grid>
             </Grid>
+
+            <!--노브 부분-->
 
             <Grid Grid.Row="0" ShowGridLines="False" DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -821,9 +825,12 @@
 
             </Grid>
 
+            <!--출력 화면-->
+            
             <Grid Grid.Row="1" ShowGridLines="False" DockPanel.Dock="Bottom">
                 <Image Source="../Assets/Excavation.png" Stretch="Uniform"/>
             </Grid>
+
         </DockPanel>
     </Grid>
 </Page>
