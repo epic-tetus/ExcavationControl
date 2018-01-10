@@ -1,0 +1,132 @@
+﻿<Page x:Class="ExcavationControl.Views.SettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ExcavationControl.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Background="White"
+      Title="SettingPage">
+
+    <Grid>
+        <StackPanel>
+
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" HorizontalAlignment="Right">연결포트:</Label>
+                <ComboBox x:Name="PortCombo" 
+                          Grid.Column="1" Width="100" 
+                          HorizontalContentAlignment="Center"
+                          DropDownOpened="PortCombo_DropDownOpened"
+                          SelectionChanged="PortCombo_SelectionChanged">
+
+                </ComboBox>
+                <Button x:Name="ConnectButton"
+                        Grid.Column="2"
+                        Margin="5 0"
+                        Click="ConnectButton_Click">연결하기</Button>
+                <Button x:Name="CancelButton" 
+                        Grid.Column="3"
+                        Margin="5 0"
+                        Click="CancelButton_Click">취소하기</Button>
+
+            </Grid>
+
+            <!-- 그룹 박스 -->
+
+            <GroupBox Margin="10" Width="Auto" Height="Auto">
+                <GroupBox.Header>
+                    포트설정
+                </GroupBox.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Margin="0 5" HorizontalContentAlignment="Right">통신속도(bps):</Label>
+                    <Label Grid.Column="0" Grid.Row="1" Margin="0 5" HorizontalContentAlignment="Right">데이터 비트:</Label>
+                    <Label Grid.Column="0" Grid.Row="2" Margin="0 5" HorizontalContentAlignment="Right">패리티:</Label>
+                    <Label Grid.Column="0" Grid.Row="3" Margin="0 5" HorizontalContentAlignment="Right">정지 비트:</Label>
+                    <Label Grid.Column="0" Grid.Row="4" Margin="0 5" HorizontalContentAlignment="Right">흐름 제어:</Label>
+
+
+                    <ComboBox x:Name="BaudRateCombo" 
+                              Grid.Column="1" Grid.Row="0"
+                              Width="100" Margin="0 5" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              SelectionChanged="BaudRateCombo_SelectionChanged">
+                        <ComboBoxItem>1200</ComboBoxItem>
+                        <ComboBoxItem>2400</ComboBoxItem>
+                        <ComboBoxItem>4800</ComboBoxItem>
+                        <ComboBoxItem>9600</ComboBoxItem>
+                        <ComboBoxItem>19200</ComboBoxItem>
+                        <ComboBoxItem>38400</ComboBoxItem>
+                        <ComboBoxItem>57600</ComboBoxItem>
+                        <ComboBoxItem>115200</ComboBoxItem>
+                        <ComboBoxItem>230400</ComboBoxItem>
+                        <ComboBoxItem>460800</ComboBoxItem>
+                        <ComboBoxItem>921600</ComboBoxItem>
+                    </ComboBox>
+
+                    <ComboBox x:Name="DataBitsCombo"
+                              Grid.Column="1" Grid.Row="1"
+                              Width="100" Margin="0 5" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              SelectionChanged="DataBitsCombo_SelectionChanged">
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                    </ComboBox>
+
+                    <ComboBox x:Name="ParityCombo" 
+                              Grid.Column="1" Grid.Row="2"
+                              Width="100" Margin="0 5" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              SelectionChanged="ParityCombo_SelectionChanged">
+                        <ComboBoxItem>None</ComboBoxItem>
+                        <ComboBoxItem>Odd</ComboBoxItem>
+                        <ComboBoxItem>Even</ComboBoxItem>
+                    </ComboBox>
+
+                    <ComboBox x:Name="StopBitsCombo" 
+                              Grid.Column="1" Grid.Row="3"
+                              Width="100" Margin="0 5" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              SelectionChanged="StopBitsCombo_SelectionChanged">
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>1.5</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                    </ComboBox>
+
+                    <ComboBox x:Name="FlowCtrlCombo" 
+                              Grid.Column="1" Grid.Row="4"
+                              Width="100" Margin="0 5" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              SelectionChanged="FlowCtrlCombo_SelectionChanged">
+                        <ComboBoxItem>None</ComboBoxItem>
+                        <ComboBoxItem>Xon/Xoff</ComboBoxItem>
+                        <ComboBoxItem>RTS/CTS</ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Page>
