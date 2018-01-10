@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcavationControl.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
@@ -23,7 +24,19 @@ namespace ExcavationControl.Views
     /// </summary>
     public partial class MainPage : Page
     {
+        #region 전역변수 정의
+
         SerialPort _Serial;
+
+        private SettingModel HModel;
+        private SettingModel SModel;
+        private SettingModel CModel;
+        private SettingModel EModel;
+
+        #endregion
+
+        #region 생성자
+
         public MainPage(SerialPort serial)
         {
             InitializeComponent();
@@ -37,7 +50,14 @@ namespace ExcavationControl.Views
             SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
             CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
             EXKnob.knob.ValueChanged += EXKnob_ValueChanged;
+
+            HModel = new SettingModel();
+            SModel = new SettingModel();
+            CModel = new SettingModel();
+            EModel = new SettingModel();
         }
+
+        #endregion
 
         #region 사용자 정의 함수
         private void CommandWrite(string command)
@@ -67,7 +87,40 @@ namespace ExcavationControl.Views
         #region 시리얼 이벤트 함수
         private void _Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            Debug.WriteLine("받은 데이터 : " + _Serial.ReadExisting());
+            var receivedData = _Serial.ReadExisting();
+
+            Debug.WriteLine("받은 데이터 : " + receivedData);
+
+            if (receivedData.Equals("HCSTART-OK"))
+                Debug.WriteLine("HC 시작 성공!");
+
+            else if (receivedData.Equals("SCSTART-OK"))
+                Debug.WriteLine("SC 시작 성공!");
+
+            else if (receivedData.Equals("CBSTART-OK"))
+                Debug.WriteLine("CB 시작 성공!");
+
+            else if (receivedData.Equals("EXSTART-OK"))
+                Debug.WriteLine("EX 시작 성공!");
+
+            else if (receivedData.Equals("EXAUTO-OK"))
+                Debug.WriteLine("EX 자동 시작 성공!");
+
+            else if (receivedData.Equals("HCSTART-OK"))
+                Debug.WriteLine("EX 지침 시작 성공!");
+
+            else if (receivedData.Equals("HCSTOP-OK"))
+                Debug.WriteLine("HC 정지 성공!");
+
+            else if (receivedData.Equals("SCSTOP-OK"))
+                Debug.WriteLine("SC 정지 성공!");
+
+            else if (receivedData.Equals("CBSTOP-OK"))
+                Debug.WriteLine("CB 정지 성공!");
+
+            else if (receivedData.Equals("EXSTOP-OK"))
+                Debug.WriteLine("EX 정지 성공!");
+
         }
         #endregion
 
@@ -117,7 +170,8 @@ namespace ExcavationControl.Views
 
         #endregion
 
-        #region 버튼 이벤트 함수
+        #region Head Cutter 버튼 이벤트 함수
+
         private void HUp_Click(object sender, RoutedEventArgs e)
         {
             int baseValue = int.Parse(HText.Text);
@@ -136,7 +190,9 @@ namespace ExcavationControl.Views
                 return;
             }
 
-            HText.Text = (++baseValue).ToString();
+            HCKnob.knob.Value = ++baseValue;
+            
+            HText.Text = (baseValue).ToString();
         }
 
         private void HDown_Click(object sender, RoutedEventArgs e)
@@ -157,7 +213,9 @@ namespace ExcavationControl.Views
                 return;
             }
 
-            HText.Text = (--baseValue).ToString();
+            HCKnob.knob.Value = --baseValue;
+
+            HText.Text = (baseValue).ToString();
         }
 
         private void HButton_Clicked(object sender, RoutedEventArgs e)
@@ -177,6 +235,8 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)leftButton).IsChecked = false;
 
+                    HModel.Direction = "R";
+
                     break;
 
                 case "3":
@@ -188,6 +248,8 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)rightButton).IsChecked = false;
 
+                    HModel.Direction = "L";
+
                     break;
 
                 case "4":
@@ -198,6 +260,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
 
                     ((ToggleButton)startButton).IsChecked = false;
+
+                    CommandWrite("HCSTOP");
 
                     break;
 
@@ -238,11 +302,16 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
-                    //CommandWrite("HCSTART-{}")
+                    HModel.SliderValue = string.Format("{0:000}", int.Parse(HText.Text));
+
+                    CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.SliderValue));
 
                     break;
             }
         }
+        #endregion
+
+        #region Screw Conveyer 버튼 이벤트 함수
 
         private void SButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -268,8 +337,10 @@ namespace ExcavationControl.Views
 
                         break;
                     }
-                        
-                    SText.Text = (++baseValue).ToString();
+
+                    SCKnob.knob.Value = ++baseValue;
+
+                    SText.Text = (baseValue).ToString();
                     break;
 
                 case "1":
@@ -289,7 +360,9 @@ namespace ExcavationControl.Views
                         break;
                     }
 
-                    SText.Text = (--baseValue).ToString();
+                    SCKnob.knob.Value = --baseValue;
+
+                    SText.Text = (baseValue).ToString();
                     break;
 
                 case "2":
@@ -300,6 +373,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
 
                     ((ToggleButton)leftButton).IsChecked = false;
+
+                    SModel.Direction = "R";
 
                     break;
 
@@ -312,6 +387,8 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)rightButton).IsChecked = false;
 
+                    SModel.Direction = "L";
+
                     break;
 
                 case "4":
@@ -322,6 +399,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
 
                     ((ToggleButton)startButton).IsChecked = false;
+
+                    CommandWrite("SCSTOP");
 
                     break;
 
@@ -362,9 +441,16 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
+                    SModel.SliderValue = string.Format("{0:000}", int.Parse(SText.Text));
+
+                    CommandWrite(string.Format("SCSTART-{0}{1}", SModel.Direction, SModel.SliderValue));
+
                     break;
             }
         }
+        #endregion
+
+        #region Conveyor Belt 버튼 이벤트 함수
 
         private void CButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -391,7 +477,9 @@ namespace ExcavationControl.Views
                         break;
                     }
 
-                    CText.Text = (++baseValue).ToString();
+                    CBKnob.knob.Value = ++baseValue;
+
+                    CText.Text = (baseValue).ToString();
                     break;
 
                 case "1":
@@ -411,7 +499,9 @@ namespace ExcavationControl.Views
                         break;
                     }
 
-                    CText.Text = (--baseValue).ToString();
+                    CBKnob.knob.Value = --baseValue;
+
+                    CText.Text = (baseValue).ToString();
                     break;
 
                 case "2":
@@ -422,6 +512,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
 
                     ((ToggleButton)leftButton).IsChecked = false;
+
+                    CModel.Direction = "R";
 
                     break;
 
@@ -434,6 +526,8 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)rightButton).IsChecked = false;
 
+                    CModel.Direction = "L";
+
                     break;
 
                 case "4":
@@ -444,6 +538,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
 
                     ((ToggleButton)startButton).IsChecked = false;
+
+                    CommandWrite("CBSTOP");
 
                     break;
 
@@ -484,9 +580,16 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
+                    CModel.SliderValue = string.Format("{0:000}", int.Parse(CText.Text));
+
+                    CommandWrite(string.Format("CBSTART-{0}{1}", CModel.Direction, CModel.SliderValue));
+
                     break;
             }
         }
+        #endregion
+
+        #region Excavation 버튼 이벤트 함수
 
         private void EButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -513,7 +616,9 @@ namespace ExcavationControl.Views
                         break;
                     }
 
-                    EText.Text = (++baseValue).ToString();
+                    EXKnob.knob.Value = ++baseValue;
+
+                    EText.Text = (baseValue).ToString();
                     break;
 
                 case "1":
@@ -533,7 +638,9 @@ namespace ExcavationControl.Views
                         break;
                     }
 
-                    EText.Text = (--baseValue).ToString();
+                    EXKnob.knob.Value = --baseValue;
+
+                    EText.Text = (baseValue).ToString();
                     break;
 
                 case "2":
@@ -544,6 +651,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
 
                     ((ToggleButton)leftButton).IsChecked = false;
+
+                    EModel.Direction = "A";
 
                     break;
 
@@ -556,6 +665,8 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)rightButton).IsChecked = false;
 
+                    EModel.Direction = "B";
+
                     break;
 
                 case "4":
@@ -566,6 +677,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
 
                     ((ToggleButton)startButton).IsChecked = false;
+
+                    CommandWrite("EXSTOP");
 
                     break;
 
@@ -606,6 +719,10 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
+                    EModel.SliderValue = string.Format("{0:000}", int.Parse(EText.Text));
+
+                    CommandWrite(string.Format("EXSTART-{0}{1}", EModel.Direction, EModel.SliderValue));
+
                     break;
 
                 case "6":
@@ -616,6 +733,8 @@ namespace ExcavationControl.Views
                     Debug.WriteLine("Changed Button's Uid :" + autoButton.Uid);
 
                     ((ToggleButton)autoButton).IsChecked = false;
+
+                    CommandWrite("EXMANUAL");
 
                     break;
 
@@ -628,17 +747,25 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)manualButton).IsChecked = false;
 
+                    string result = string.Format("{0:00}", int.Parse(AutoControlBox.Text));
+
+                    CommandWrite("EXAUTO-" + result);
+
                     break;
             }
         }
+        #endregion
 
-        private void LPButton_Clicked(object sender, RoutedEventArgs e)
+        #region Right Panel 버튼 이벤트 함수
+
+        private void RPButton_Clicked(object sender, RoutedEventArgs e)
         {
             Button selectedButton = (Button)sender;
             switch (selectedButton.Uid)
             {
                 case "0":
                     Debug.WriteLine("Up Button");
+
                     break;
 
                 case "1":
