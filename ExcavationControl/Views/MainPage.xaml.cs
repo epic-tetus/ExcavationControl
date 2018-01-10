@@ -306,6 +306,9 @@ namespace ExcavationControl.Views
 
                     CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.SliderValue));
 
+                    OutputWindow outputWindow = new OutputWindow();
+                    outputWindow.Owner = this;
+
                     break;
             }
         }
@@ -803,25 +806,25 @@ namespace ExcavationControl.Views
             Debug.WriteLine("예전 메인 페이지 크기 : " + OldSize);
             Debug.WriteLine("현재 메인 페이지 크기 : " + NowSize);
 
-            // 사이즈가 작아짐
-            if (OldSize.Height - NowSize.Height > 0)
-            {
-                if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
-                    FontSize = 1;
-                else
-                    FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
-                return;
-            }
+            //// 사이즈가 작아짐
+            //if (OldSize.Height - NowSize.Height > 0)
+            //{
+            //    if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
+            //        FontSize = 1;
+            //    else
+            //        FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
+            //    return;
+            //}
 
-            // 사이즈가 커짐
-            else if (OldSize.Height - NowSize.Height < 0)
-            {
-                if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
-                    FontSize = 1;
-                else
-                    FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
-                return;
-            }
+            //// 사이즈가 커짐
+            //else if (OldSize.Height - NowSize.Height < 0)
+            //{
+            //    if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
+            //        FontSize = 1;
+            //    else
+            //        FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
+            //    return;
+            //}
 
             //// 사이즈가 작아짐
             //if (OldSize.Width - NowSize.Width > 0)
