@@ -76,7 +76,7 @@ namespace ExcavationControl.Views
 
                 Debug.WriteLine("포트열기 성공!");
 
-                MainPage mainPage = new MainPage();
+                MainPage mainPage = new MainPage(serial);
 
                 NavigationService.Navigate(mainPage);
 

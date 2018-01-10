@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -38,7 +39,7 @@ namespace ExcavationControl.Views
             EXKnob.knob.ValueChanged += EXKnob_ValueChanged;
         }
 
-        #region 사용자 지정 함수
+        #region 사용자 정의 함수
         private void CommandWrite(string command)
         {
             try
@@ -72,6 +73,7 @@ namespace ExcavationControl.Views
 
         #region UI 이벤트 함수
 
+        #region 노브 값 변경 이벤트 함수
         private void HCKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int value = (int)Math.Round(HCKnob.knob.Value);
@@ -113,6 +115,9 @@ namespace ExcavationControl.Views
             EText.Text = Math.Round(EXKnob.knob.Value).ToString();
         }
 
+        #endregion
+
+        #region 버튼 이벤트 함수
         private void HUp_Click(object sender, RoutedEventArgs e)
         {
             int baseValue = int.Parse(HText.Text);
@@ -159,19 +164,41 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(HText.Text);
 
-            Button selectedButton = (Button)sender;
+            var selectedButton = sender as UIElement;
+
             switch (selectedButton.Uid)
             {
                 case "2":
                     Debug.WriteLine("Right Button");
+
+                    var leftButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+
+                    ((ToggleButton)leftButton).IsChecked = false;
+
                     break;
 
                 case "3":
                     Debug.WriteLine("Left Button");
+
+                    var rightButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton.Uid);
+
+                    ((ToggleButton)rightButton).IsChecked = false;
+
                     break;
 
                 case "4":
                     Debug.WriteLine("Stop Button");
+
+                    var startButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
+
+                    ((ToggleButton)startButton).IsChecked = false;
+
                     break;
 
                 case "5":
@@ -205,7 +232,13 @@ namespace ExcavationControl.Views
                         break;
                     }
 
+                    var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
 
+                    Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
+
+                    ((ToggleButton)stopButton).IsChecked = false;
+
+                    //CommandWrite("HCSTART-{}")
 
                     break;
             }
@@ -215,7 +248,9 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
-            Button selectedButton = (Button)sender;
+            // 토글 버튼인지 버튼인지 모르기 때문에 UIElement로 일단 형 변환
+            var selectedButton = sender as UIElement;
+
             switch (selectedButton.Uid)
             {
                 case "0":
@@ -259,14 +294,35 @@ namespace ExcavationControl.Views
 
                 case "2":
                     Debug.WriteLine("Right Button");
+
+                    var leftButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+
+                    ((ToggleButton)leftButton).IsChecked = false;
+
                     break;
 
                 case "3":
                     Debug.WriteLine("Left Button");
+
+                    var rightButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton.Uid);
+
+                    ((ToggleButton)rightButton).IsChecked = false;
+
                     break;
 
                 case "4":
                     Debug.WriteLine("Stop Button");
+
+                    var startButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
+
+                    ((ToggleButton)startButton).IsChecked = false;
+
                     break;
 
                 case "5":
@@ -300,6 +356,12 @@ namespace ExcavationControl.Views
                         break;
                     }
 
+                    var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
+
+                    ((ToggleButton)stopButton).IsChecked = false;
+
                     break;
             }
         }
@@ -308,7 +370,8 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
-            Button selectedButton = (Button)sender;
+            var selectedButton = sender as UIElement;
+
             switch (selectedButton.Uid)
             {
                 case "0":
@@ -353,14 +416,35 @@ namespace ExcavationControl.Views
 
                 case "2":
                     Debug.WriteLine("Right Button");
+
+                    var leftButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+
+                    ((ToggleButton)leftButton).IsChecked = false;
+
                     break;
 
                 case "3":
                     Debug.WriteLine("Left Button");
+
+                    var rightButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton.Uid);
+
+                    ((ToggleButton)rightButton).IsChecked = false;
+
                     break;
 
                 case "4":
                     Debug.WriteLine("Stop Button");
+
+                    var startButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
+
+                    ((ToggleButton)startButton).IsChecked = false;
+
                     break;
 
                 case "5":
@@ -394,6 +478,12 @@ namespace ExcavationControl.Views
                         break;
                     }
 
+                    var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
+
+                    ((ToggleButton)stopButton).IsChecked = false;
+
                     break;
             }
         }
@@ -402,7 +492,8 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
-            Button selectedButton = (Button)sender;
+            var selectedButton = sender as UIElement;
+
             switch (selectedButton.Uid)
             {
                 case "0":
@@ -446,15 +537,36 @@ namespace ExcavationControl.Views
                     break;
 
                 case "2":
-                    Debug.WriteLine("Right Button");
+                    Debug.WriteLine("Advance Button");
+
+                    var leftButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+
+                    ((ToggleButton)leftButton).IsChecked = false;
+
                     break;
 
                 case "3":
-                    Debug.WriteLine("Left Button");
+                    Debug.WriteLine("Back Button");
+
+                    var rightButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton.Uid);
+
+                    ((ToggleButton)rightButton).IsChecked = false;
+
                     break;
 
                 case "4":
                     Debug.WriteLine("Stop Button");
+
+                    var startButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + startButton.Uid);
+
+                    ((ToggleButton)startButton).IsChecked = false;
+
                     break;
 
                 case "5":
@@ -487,6 +599,34 @@ namespace ExcavationControl.Views
 
                         break;
                     }
+
+                    var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
+
+                    ((ToggleButton)stopButton).IsChecked = false;
+
+                    break;
+
+                case "6":
+                    Debug.WriteLine("Manual Button");
+
+                    var autoButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 2) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + autoButton.Uid);
+
+                    ((ToggleButton)autoButton).IsChecked = false;
+
+                    break;
+
+                case "7":
+                    Debug.WriteLine("Auto Button");
+
+                    var manualButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + manualButton.Uid);
+
+                    ((ToggleButton)manualButton).IsChecked = false;
 
                     break;
             }
@@ -522,6 +662,8 @@ namespace ExcavationControl.Views
                     break;
             }
         }
+        #endregion
+
         #endregion
     }
 }
