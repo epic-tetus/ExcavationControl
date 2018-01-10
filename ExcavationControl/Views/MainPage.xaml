@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:ExcavationControl.Views"
       xmlns:knob="clr-namespace:ExcavationControl.Views"
       mc:Ignorable="d" 
-      MinHeight="720" MinWidth="1280"
-      MaxHeight="720" MaxWidth="1280"
-      Title="MainPage" Background="White">
+      
+      SizeChanged="Page_SizeChanged"
+      Title="MainPage" Background="White"
+      FontSize="20">
 
     <Grid>
         <DockPanel>
@@ -43,10 +44,9 @@
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" 
                                    VerticalAlignment="Center"
-                                   FontSize="25" FontWeight="Bold">-Auto Control Set(Straight)</Label>
+                                   FontWeight="Bold">-Auto Control Set(Straight)</Label>
                             <TextBox x:Name="AutoControlBox" 
                                      Grid.Row="1"
-                                     FontSize="25"
                                      Margin="40,0,39.6,0" Padding="40 0 5 0"
                                      BorderBrush="Black" BorderThickness="1.5"
                                      Background="LightGray" Foreground="White"
@@ -68,8 +68,7 @@
                                 <RowDefinition Height="0.1*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" 
-                               FontSize="25" FontWeight="Bold">-Articulation Angle</Label>
+                            <Label Grid.Row="0" FontWeight="Bold">-Articulation Angle</Label>
 
                             <!--방향 + 결과 가로 그리드-->
                             <Grid Grid.Row="1">
@@ -95,14 +94,14 @@
                                                   BorderBrush="Black" 
                                                   VerticalAlignment="Center"
                                                   Background="SkyBlue" Foreground="White" 
-                                                  FontSize="25" Click="RPButton_Clicked" >Up</ToggleButton>
+                                                  Click="RPButton_Clicked" >Up</ToggleButton>
                                     <ToggleButton x:Uid="1" 
                                                   Grid.Column="1" 
                                                   Margin="10 5" 
                                                   BorderBrush="Black" 
                                                   VerticalAlignment="Center" 
                                                   Background="SkyBlue" Foreground="White" 
-                                                  FontSize="25" Click="RPButton_Clicked">Down</ToggleButton>
+                                                  Click="RPButton_Clicked">Down</ToggleButton>
                                 </Grid>
 
                                 <!--right, left 버튼 가로 그리드-->
@@ -118,14 +117,14 @@
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25" Click="RPButton_Clicked">Right</ToggleButton>
+                                            Click="RPButton_Clicked">Right</ToggleButton>
                                     <ToggleButton x:Uid="3"
                                             Grid.Column="1" 
                                             Margin="10 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
-                                            FontSize="25" Click="RPButton_Clicked">Left</ToggleButton>
+                                            Click="RPButton_Clicked">Left</ToggleButton>
                                 </Grid>
 
                                 <TextBox x:Name="AAText_1"
@@ -133,7 +132,6 @@
                                          Margin="10 0" VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
-                                         FontSize="25"
                                          Background="LightGray" Foreground="White">
                                     000.0º
                                 </TextBox>
@@ -142,7 +140,6 @@
                                          Margin="10 0" VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
-                                         FontSize="25"
                                          Background="LightGray" Foreground="White">
                                     000.0º
                                 </TextBox>
@@ -164,7 +161,7 @@
                                             BorderBrush="Black"
                                             Background="SkyBlue" Foreground="White"
                                             VerticalAlignment="Center"
-                                            FontSize="25" Click="RPButton_Clicked">
+                                            Click="RPButton_Clicked">
                                         Angle</Button>
                                 </Grid>
 
@@ -174,7 +171,6 @@
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
-                                         FontSize="25"
                                          Background="LightGray" Foreground="White">
                                     000.0º
                                 </TextBox>
@@ -192,20 +188,20 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Column="0" Grid.RowSpan="2" 
-                                       FontSize="25" FontWeight="Bold"
+                                       FontWeight="Bold"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        TextAlignment="Center"
                                        >-Jack<LineBreak />Force
                                 </TextBlock>
 
                                 <TextBlock Grid.Column="1" Grid.Row="0" 
-                                       FontSize="25" FontWeight="Bold"
+                                       FontWeight="Bold"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        >Right
                                 </TextBlock>
 
                                 <TextBlock Grid.Column="1" Grid.Row="1" 
-                                           FontSize="25" FontWeight="Bold"
+                                           FontWeight="Bold"
                                            HorizontalAlignment="Center" VerticalAlignment="Center">
                                     Left
                                 </TextBlock>
@@ -216,7 +212,6 @@
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
-                                         FontSize="40"
                                          Background="LightGray" Foreground="White">
                                     00kN
                                 </TextBox>
@@ -226,7 +221,6 @@
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
-                                         FontSize="40"
                                          Background="LightGray" Foreground="White">
                                     00kN
                                 </TextBox>
@@ -243,7 +237,6 @@
                                 <Button x:Uid="5"
                                         Grid.Column="2" 
                                         Background="SkyBlue" Foreground="White" 
-                                        FontSize="25"
                                         VerticalAlignment="Center" 
                                         Padding="10 0" Click="RPButton_Clicked">
                                     SEND
@@ -288,10 +281,10 @@
                             <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                           FontSize="25" FontWeight="Bold">Head Cutter</Label>
+                           FontWeight="Bold">Head Cutter</Label>
 
                             <Label Grid.Row="1" 
-                           FontSize="20" 
+                           
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                             <knob:KnobControl x:Name="HCKnob" 
@@ -311,7 +304,7 @@
                                     <ColumnDefinition Width="0.15*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                                   FontSize="16" FontWeight="Bold"
+                                   FontWeight="Bold"
                                    HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
                                 <Grid Grid.Column="1">
@@ -333,21 +326,21 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="16" FontWeight="ExtraBold"
+                                    FontWeight="ExtraBold"
                                     Click="HUp_Click">▲</Button>
                                     <Button x:Name="HDown" 
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="16" FontWeight="ExtraBold"
+                                    FontWeight="ExtraBold"
                                     Click="HDown_Click">▼</Button>
 
                                 </Grid>
 
                                 <TextBox x:Name="HText"
                                  Grid.Column="2"
-                                 FontSize="16" FontWeight="Bold"
+                                 FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -375,13 +368,13 @@
                                 <ToggleButton x:Uid="2" 
                                           Grid.Column="0" Grid.Row="1"
                                           Margin="10 0 5 5"
-                                          FontSize="20" FontWeight="Bold"
+                                          FontWeight="Bold"
                                           Background="Red" Foreground="White" 
                                           Checked="HButton_Clicked">RIGHT</ToggleButton>
                                 <ToggleButton x:Uid="3"
                                           Grid.Column="1" Grid.Row="1"
                                           Margin="5 0 10 5"
-                                          FontSize="20" FontWeight="Bold"
+                                          FontWeight="Bold"
                                           Background="Green" Foreground="White"
                                           Checked="HButton_Clicked">LEFT</ToggleButton>
                             </Grid>
@@ -401,13 +394,13 @@
                                 <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="HButton_Clicked">STOP</ToggleButton>
                                 <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="HButton_Clicked">START</ToggleButton>
                             </Grid>
@@ -431,10 +424,10 @@
                             <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                           FontSize="25" FontWeight="Bold">Screw Conveyer</Label>
+                           FontWeight="Bold">Screw Conveyer</Label>
 
                             <Label Grid.Row="1" 
-                           FontSize="20" 
+                            
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                             <knob:KnobControl x:Name="SCKnob" 
@@ -453,7 +446,7 @@
                                     <ColumnDefinition Width="0.15*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                               FontSize="16" FontWeight="Bold"
+                                FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
                                 <Grid Grid.Column="1">
@@ -475,21 +468,21 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="16" FontWeight="ExtraBold" 
+                                    FontWeight="ExtraBold" 
                                     Click="SButton_Clicked">▲</Button>
                                     <Button x:Uid="1"
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="16" FontWeight="ExtraBold"
+                                    FontWeight="ExtraBold"
                                     Click="SButton_Clicked">▼</Button>
 
                                 </Grid>
 
                                 <TextBox x:Name="SText"
                                  Grid.Column="2"
-                                 FontSize="16" FontWeight="Bold"
+                                 FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -516,13 +509,13 @@
                                 <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="SButton_Clicked">RIGHT</ToggleButton>
                                 <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="SButton_Clicked">LEFT</ToggleButton>
                             </Grid>
@@ -542,13 +535,13 @@
                                 <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="SButton_Clicked">STOP</ToggleButton>
                                 <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="SButton_Clicked">START</ToggleButton>
                             </Grid>
@@ -572,10 +565,9 @@
                             <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                           FontSize="25" FontWeight="Bold">Conveyor Belt</Label>
+                           FontWeight="Bold">Conveyor Belt</Label>
 
                             <Label Grid.Row="1" 
-                           FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                             <knob:KnobControl x:Name="CBKnob" 
@@ -594,7 +586,7 @@
                                     <ColumnDefinition Width="0.15*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                               FontSize="16" FontWeight="Bold"
+                               FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
                                 <Grid Grid.Column="1">
@@ -615,20 +607,20 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="16" FontWeight="ExtraBold" 
+                                    FontWeight="ExtraBold" 
                                     Click="CButton_Clicked">▲</Button>
                                     <Button x:Uid="1" Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="16" FontWeight="ExtraBold"
+                                    FontWeight="ExtraBold"
                                     Click="CButton_Clicked">▼</Button>
 
                                 </Grid>
 
                                 <TextBox x:Name="CText"
                                  Grid.Column="2"
-                                 FontSize="16" FontWeight="Bold"
+                                 FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -657,13 +649,13 @@
                                 <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="CButton_Clicked">RIGHT</ToggleButton>
                                 <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="CButton_Clicked">LEFT</ToggleButton>
                             </Grid>
@@ -683,13 +675,13 @@
                                 <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="CButton_Clicked">STOP</ToggleButton>
                                 <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="CButton_Clicked">START</ToggleButton>
                             </Grid>
@@ -714,10 +706,9 @@
                             <Label Background="Black" Foreground="White" 
                            Margin="5 2.5" Padding="0"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                           FontSize="25" FontWeight="Bold">Excavation</Label>
+                           FontWeight="Bold">Excavation</Label>
 
                             <Label Grid.Row="1" 
-                           FontSize="20" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                             <knob:KnobControl x:Name="EXKnob" 
@@ -736,7 +727,7 @@
                                     <ColumnDefinition Width="0.15*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                               FontSize="16" FontWeight="Bold"
+                               FontWeight="Bold"
                                HorizontalAlignment="Right" VerticalAlignment="Center">Speed Input :</Label>
 
                                 <Grid Grid.Column="1">
@@ -758,21 +749,21 @@
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 3 0 0"
-                                    FontSize="16" FontWeight="ExtraBold" 
+                                    FontWeight="ExtraBold" 
                                     Click="EButton_Clicked">▲</Button>
                                     <Button x:Uid="1"
                                     Grid.Row="1" 
                                     BorderBrush="Transparent" 
                                     Background="Transparent" 
                                     Padding="0 0 0 3"
-                                    FontSize="16" FontWeight="ExtraBold"
+                                    FontWeight="ExtraBold"
                                     Click="EButton_Clicked">▼</Button>
 
                                 </Grid>
 
                                 <TextBox x:Name="EText"
                                  Grid.Column="2"
-                                 FontSize="16" FontWeight="Bold"
+                                 FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -799,13 +790,13 @@
                                 <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">ADVANCE</ToggleButton>
                                 <ToggleButton x:Uid="3"
                                 Grid.Column="1" Grid.Row="1"
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">BACK</ToggleButton>
                             </Grid>
@@ -825,13 +816,13 @@
                                 <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">STOP</ToggleButton>
                                 <ToggleButton x:Uid="5"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">START</ToggleButton>
                             </Grid>
@@ -850,13 +841,13 @@
                                 <ToggleButton x:Uid="6"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Red" Foreground="White"
                                 Checked="EButton_Clicked">MANUAL</ToggleButton>
                                 <ToggleButton x:Uid="7"
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5 0 10 5"
-                                FontSize="20" FontWeight="Bold"
+                                FontWeight="Bold"
                                 Background="Green" Foreground="White"
                                 Checked="EButton_Clicked">AUTO</ToggleButton>
                             </Grid>

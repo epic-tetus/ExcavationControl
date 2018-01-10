@@ -44,7 +44,7 @@ namespace ExcavationControl.Views
             _Serial = serial;
             _Serial.DataReceived += _Serial_DataReceived;
 
-            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            //Application.Current.MainWindow.WindowState = WindowState.Maximized;
 
             HCKnob.knob.ValueChanged += HCKnob_ValueChanged;
             SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
@@ -794,5 +794,54 @@ namespace ExcavationControl.Views
         #endregion
 
         #endregion
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Size OldSize = e.PreviousSize;
+            Size NowSize = e.NewSize;
+
+            Debug.WriteLine("예전 메인 페이지 크기 : " + OldSize);
+            Debug.WriteLine("현재 메인 페이지 크기 : " + NowSize);
+
+            // 사이즈가 작아짐
+            if (OldSize.Height - NowSize.Height > 0)
+            {
+                if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
+                    FontSize = 1;
+                else
+                    FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
+                return;
+            }
+
+            // 사이즈가 커짐
+            else if (OldSize.Height - NowSize.Height < 0)
+            {
+                if (FontSize - Math.Round((OldSize.Height - NowSize.Height)/100) <= 0)
+                    FontSize = 1;
+                else
+                    FontSize = FontSize - Math.Round((OldSize.Height - NowSize.Height)/100);
+                return;
+            }
+
+            //// 사이즈가 작아짐
+            //if (OldSize.Width - NowSize.Width > 0)
+            //{
+            //    if (FontSize - Math.Round((OldSize.Width - NowSize.Width)/100) <= 0)
+            //        FontSize = 1;
+            //    else
+            //        FontSize = FontSize - Math.Round((OldSize.Width - NowSize.Width))/100;
+            //    return;
+            //}
+
+            //// 사이즈가 커짐
+            //else if (OldSize.Width - NowSize.Width < 0)
+            //{
+            //    if (FontSize - Math.Round((OldSize.Width - NowSize.Width)/100) <= 0)
+            //        FontSize = 1;
+            //    else
+            //        FontSize = FontSize - Math.Round((OldSize.Width - NowSize.Width)/100);
+            //    return;
+            //}
+        }
     }
 }

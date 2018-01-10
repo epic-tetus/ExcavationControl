@@ -36,5 +36,16 @@ namespace ExcavationControl
 
             MainFrame.Navigate(settingPage);
         }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Size oldSize = e.PreviousSize;
+
+            Size newSize = e.NewSize;
+
+            Debug.WriteLine("예전 크기 : " + oldSize);
+
+            Debug.WriteLine("현재 크기 : " + newSize);
+        }
     }
 }

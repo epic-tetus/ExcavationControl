@@ -7,7 +7,9 @@
         xmlns:knob="clr-namespace:ExcavationControl.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="370"
-        MinWidth="1280" MinHeight="720">
+        
+        SizeChanged="Window_SizeChanged"
+        FontSize="20">
     <Grid>
         <Frame x:Name="MainFrame"
                Padding="10"
