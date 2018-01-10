@@ -25,6 +25,8 @@ namespace ExcavationControl.Views
         {
             InitializeComponent();
 
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+
             HCKnob.knob.ValueChanged += HCKnob_ValueChanged;
             SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
             CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
