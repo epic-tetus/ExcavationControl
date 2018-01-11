@@ -9,7 +9,7 @@ namespace ExcavationControl.Models
     public class SettingModel
     {
         public string Direction { get; set; } = "R";
-        public string SliderValue { get; set; } = "000";
+        public string Value { get; set; } = "000";
     }
 
 }

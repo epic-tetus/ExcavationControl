@@ -112,7 +112,7 @@
                         <!--right, left 버튼 가로 그리드-->
                         <Grid Grid.Column="0" Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.49*"/>
                                 <ColumnDefinition Width="0.5*"/>
                             </Grid.ColumnDefinitions>
 
@@ -141,7 +141,7 @@
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
                                          Background="LightGray" Foreground="White">
-                            000.0º
+                            000.0˚
                         </TextBox>
                         <TextBox x:Name="AAText_2"
                                  FontSize="16"
@@ -150,7 +150,7 @@
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
                                          Background="LightGray" Foreground="White">
-                            000.0º
+                            000.0˚
                         </TextBox>
                     </Grid>
 
@@ -165,14 +165,14 @@
                                 <ColumnDefinition Width="0.3*"/>
                                 <ColumnDefinition Width="0.2*"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Uid="4" 
+                            <ToggleButton x:Uid="4" 
                                             Grid.Column="1" 
                                     FontSize="16"
                                             BorderBrush="Black"
                                             Background="SkyBlue" Foreground="White"
                                             VerticalAlignment="Center"
-                                            Click="RPButton_Clicked">
-                                Angle</Button>
+                                            Checked="RPButton_Clicked">
+                                Angle</ToggleButton>
                         </Grid>
 
                         <TextBox x:Name="AAText_3"
@@ -183,7 +183,7 @@
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
                                          Background="LightGray" Foreground="White">
-                            000.0º
+                            000.0˚
                         </TextBox>
                     </Grid>
 

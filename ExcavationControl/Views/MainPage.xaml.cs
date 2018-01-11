@@ -32,6 +32,7 @@ namespace ExcavationControl.Views
         private SettingModel SModel;
         private SettingModel CModel;
         private SettingModel EModel;
+        private SettingModel RModel;
 
         #endregion
 
@@ -55,6 +56,7 @@ namespace ExcavationControl.Views
             SModel = new SettingModel();
             CModel = new SettingModel();
             EModel = new SettingModel();
+            RModel = new SettingModel();
         }
 
         #endregion
@@ -140,6 +142,10 @@ namespace ExcavationControl.Views
 
             else if (receivedData.Equals("EXSTOP-OK"))
                 Debug.WriteLine("EX 정지 성공!");
+            else if (receivedData.Equals("AASEND-OK"))
+                Debug.WriteLine("AA 전송 성공!");
+            else
+                Debug.WriteLine(receivedData);
 
         }
         #endregion
@@ -203,46 +209,50 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(HText.Text);
 
-            if ((baseValue + 1) > 100)
+            int destinationValue = baseValue + 5;
+
+            if (destinationValue > 100)
             {
                 MessageBoxImage boxImage = MessageBoxImage.Warning;
                 MessageBoxButton boxButton = MessageBoxButton.OK;
                 MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                 string Title = "경고!";
-                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                 MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                 return;
             }
 
-            HCKnob.knob.Value = ++baseValue;
+            HCKnob.knob.Value = destinationValue;
             
-            HText.Text = (baseValue).ToString();
+            HText.Text = destinationValue.ToString();
         }
 
         private void HDown_Click(object sender, RoutedEventArgs e)
         {
             int baseValue = int.Parse(HText.Text);
 
-            if ((baseValue - 1) < 0)
+            int destinationValue = baseValue - 5;
+
+            if (destinationValue < 0)
             {
                 MessageBoxImage boxImage = MessageBoxImage.Warning;
                 MessageBoxButton boxButton = MessageBoxButton.OK;
                 MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                 string Title = "경고!";
-                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+                string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                 MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                 return;
             }
 
-            HCKnob.knob.Value = --baseValue;
+            HCKnob.knob.Value = destinationValue;
 
-            HText.Text = (baseValue).ToString();
+            HText.Text = destinationValue.ToString();
         }
 
         private void HButton_Clicked(object sender, RoutedEventArgs e)
@@ -329,9 +339,9 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
-                    HModel.SliderValue = string.Format("{0:000}", int.Parse(HText.Text));
+                    HModel.Value = string.Format("{0:000}", int.Parse(HText.Text));
 
-                    CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.SliderValue));
+                    CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.Value));
 
                     //OutputWindow outputWindow = new OutputWindow();
                     //outputWindow.Owner = this;
@@ -347,6 +357,8 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
+            int destinationValue = baseValue + 5;
+
             // 토글 버튼인지 버튼인지 모르기 때문에 UIElement로 일단 형 변환
             var selectedButton = sender as UIElement;
 
@@ -354,45 +366,47 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
-                    if( (baseValue+1) > 100)
+                    if( destinationValue > 100)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK ,options: boxOptions);
 
                         break;
                     }
 
-                    SCKnob.knob.Value = ++baseValue;
+                    SCKnob.knob.Value = destinationValue;
 
-                    SText.Text = (baseValue).ToString();
+                    SText.Text = (destinationValue).ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
 
-                    if ((baseValue - 1) < 0)
+                    destinationValue -= 10;
+
+                    if (destinationValue < 0)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
 
-                    SCKnob.knob.Value = --baseValue;
+                    SCKnob.knob.Value = destinationValue;
 
-                    SText.Text = (baseValue).ToString();
+                    SText.Text = destinationValue.ToString();
                     break;
 
                 case "2":
@@ -471,9 +485,9 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
-                    SModel.SliderValue = string.Format("{0:000}", int.Parse(SText.Text));
+                    SModel.Value = string.Format("{0:000}", int.Parse(SText.Text));
 
-                    CommandWrite(string.Format("SCSTART-{0}{1}", SModel.Direction, SModel.SliderValue));
+                    CommandWrite(string.Format("SCSTART-{0}{1}", SModel.Direction, SModel.Value));
 
                     break;
             }
@@ -486,6 +500,8 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
+            int destinationValue = baseValue + 5;
+
             var selectedButton = sender as UIElement;
 
             switch (selectedButton.Uid)
@@ -493,45 +509,47 @@ namespace ExcavationControl.Views
                 case "0":
                     Debug.WriteLine("Up Button");
 
-                    if ((baseValue + 1) > 100)
+                    if (destinationValue > 100)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
 
-                    CBKnob.knob.Value = ++baseValue;
+                    CBKnob.knob.Value = destinationValue;
 
-                    CText.Text = (baseValue).ToString();
+                    CText.Text = destinationValue.ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
 
-                    if ((baseValue - 1) < 0)
+                    destinationValue -= 10;
+
+                    if (destinationValue < 0)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
 
-                    CBKnob.knob.Value = --baseValue;
+                    CBKnob.knob.Value = destinationValue;
 
-                    CText.Text = (baseValue).ToString();
+                    CText.Text = destinationValue.ToString();
                     break;
 
                 case "2":
@@ -610,9 +628,9 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
-                    CModel.SliderValue = string.Format("{0:000}", int.Parse(CText.Text));
+                    CModel.Value = string.Format("{0:000}", int.Parse(CText.Text));
 
-                    CommandWrite(string.Format("CBSTART-{0}{1}", CModel.Direction, CModel.SliderValue));
+                    CommandWrite(string.Format("CBSTART-{0}{1}", CModel.Direction, CModel.Value));
 
                     break;
             }
@@ -625,6 +643,8 @@ namespace ExcavationControl.Views
         {
             int baseValue = int.Parse(SText.Text);
 
+            int destinationValue = baseValue + 5;
+
             var selectedButton = sender as UIElement;
 
             switch (selectedButton.Uid)
@@ -632,45 +652,47 @@ namespace ExcavationControl.Views
                 case "0":
                     Debug.WriteLine("Up Button");
 
-                    if ((baseValue + 1) > 100)
+                    if (destinationValue > 100)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue + 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
 
-                    EXKnob.knob.Value = ++baseValue;
+                    EXKnob.knob.Value = destinationValue;
 
-                    EText.Text = (baseValue).ToString();
+                    EText.Text = destinationValue.ToString();
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
 
-                    if ((baseValue - 1) < 0)
+                    destinationValue -= 10;
+
+                    if (destinationValue < 0)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
                         MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
 
                         string Title = "경고!";
-                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue - 1);
+                        string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
 
-                    EXKnob.knob.Value = --baseValue;
+                    EXKnob.knob.Value = destinationValue;
 
-                    EText.Text = (baseValue).ToString();
+                    EText.Text = destinationValue.ToString();
                     break;
 
                 case "2":
@@ -749,9 +771,9 @@ namespace ExcavationControl.Views
 
                     ((ToggleButton)stopButton).IsChecked = false;
 
-                    EModel.SliderValue = string.Format("{0:000}", int.Parse(EText.Text));
+                    EModel.Value = string.Format("{0:000}", int.Parse(EText.Text));
 
-                    CommandWrite(string.Format("EXSTART-{0}{1}", EModel.Direction, EModel.SliderValue));
+                    CommandWrite(string.Format("EXSTART-{0}{1}", EModel.Direction, EModel.Value));
 
                     break;
 
@@ -790,34 +812,214 @@ namespace ExcavationControl.Views
 
         private void RPButton_Clicked(object sender, RoutedEventArgs e)
         {
-            Button selectedButton = (Button)sender;
+            var selectedButton = sender as UIElement;
+
             switch (selectedButton.Uid)
             {
                 case "0":
                     Debug.WriteLine("Up Button");
 
+                    var _Parent = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
 
+                    var angleButton = VisualTreeHelper.GetChild( VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent, 2), 0),0);
+
+                    var downGrid = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 1) as UIElement;
+
+                    var downButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    var rightButton = VisualTreeHelper.GetChild(((Grid)downGrid), 0) as UIElement;
+
+                    var leftButton = VisualTreeHelper.GetChild(((Grid)downGrid), 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + downButton.Uid);
+
+                    ((ToggleButton)downButton).IsChecked = false;
+                    ((ToggleButton)rightButton).IsChecked = false;
+                    ((ToggleButton)leftButton).IsChecked = false;
+                    ((ToggleButton)angleButton).IsChecked = false;
+
+                    RModel.Direction = "U";
 
                     break;
 
                 case "1":
                     Debug.WriteLine("Down Button");
+
+                    var _Parent1 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
+
+                    var angleButton1 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent1, 2), 0),0);
+
+                    var downGrid1 = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 1) as UIElement;
+
+                    var upButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 0) as UIElement;
+
+                    var rightButton1 = VisualTreeHelper.GetChild(((Grid)downGrid1), 0) as UIElement;
+
+                    var leftButton1 = VisualTreeHelper.GetChild(((Grid)downGrid1), 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton1.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton1.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + upButton.Uid);
+
+                    ((ToggleButton)upButton).IsChecked = false;
+                    ((ToggleButton)rightButton1).IsChecked = false;
+                    ((ToggleButton)leftButton1).IsChecked = false;
+                    ((ToggleButton)angleButton1).IsChecked = false;
+
+                    RModel.Direction = "D";
+
                     break;
 
                 case "2":
                     Debug.WriteLine("Right Button");
+
+                    var _Parent2 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
+
+                    var angleButton2 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent2, 2), 0),0);
+
+                    var upGrid = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 0) as UIElement;
+
+                    var leftButton2 = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
+
+                    var upButton1 = VisualTreeHelper.GetChild(((Grid)upGrid), 0) as UIElement;
+
+                    var downButton1 = VisualTreeHelper.GetChild(((Grid)upGrid), 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + upButton1.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + downButton1.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + leftButton2.Uid);
+
+                    ((ToggleButton)upButton1).IsChecked = false;
+                    ((ToggleButton)downButton1).IsChecked = false;
+                    ((ToggleButton)leftButton2).IsChecked = false;
+                    ((ToggleButton)angleButton2).IsChecked = false;
+
+                    RModel.Direction = "R";
+
                     break;
 
                 case "3":
                     Debug.WriteLine("Left Button");
+
+                    var _Parent3 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
+
+                    var angleButton3 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild( VisualTreeHelper.GetChild(_Parent3, 2),0),0);
+
+                    var upGrid1 = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 0) as UIElement;
+
+                    var rightButton2 = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 0) as UIElement;
+
+                    var upButton2 = VisualTreeHelper.GetChild(((Grid)upGrid1), 0) as UIElement;
+
+                    var downButton2 = VisualTreeHelper.GetChild(((Grid)upGrid1), 1) as UIElement;
+
+                    Debug.WriteLine("Changed Button's Uid :" + upButton2.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + downButton2.Uid);
+                    Debug.WriteLine("Changed Button's Uid :" + rightButton2.Uid);
+
+                    ((ToggleButton)upButton2).IsChecked = false;
+                    ((ToggleButton)downButton2).IsChecked = false;
+                    ((ToggleButton)rightButton2).IsChecked = false;
+                    ((ToggleButton)angleButton3).IsChecked = false;
+
+                    RModel.Direction = "L";
+
                     break;
 
                 case "4":
                     Debug.WriteLine("Angle Button");
+
+                    var P1 = VisualTreeHelper.GetParent(selectedButton);
+                    var P2 = VisualTreeHelper.GetParent(P1);
+                    var P3 = VisualTreeHelper.GetParent(P2);
+                    var P4 = VisualTreeHelper.GetParent(P3);
+                        
+                    Debug.WriteLine("First : " + P1);
+                    Debug.WriteLine("Second : " + P2);
+                    Debug.WriteLine("Third : " + P3);
+                    Debug.WriteLine("Forth : " + P4);
+
+                    Array upPanel = new UIElement[2] { VisualTreeHelper.GetChild( VisualTreeHelper.GetChild(P3,1) as UIElement,0) as UIElement,
+                                                       VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(P3, 1) as UIElement, 1) as UIElement };
+
+                    Array ToggleButtonArray = new ToggleButton[4] { (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(0) as UIElement , 0),
+                                                                    (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(0) as UIElement, 1),
+                                                                    (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(1) as UIElement, 0),
+                                                                    (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(1) as UIElement, 1) }; 
+
+                    foreach(ToggleButton data in ToggleButtonArray)
+                    {
+                        data.IsChecked = false;
+                    }
+
+                    RModel.Direction = "A";
+
                     break;
 
                 case "5":
                     Debug.WriteLine("Send Button");
+
+                    string sendText="";
+
+                    if (!AAText_1.Text.Contains("."))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("형식에 맞게 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        AAText_1.Focus();
+
+                        return;
+                    }
+                    else if (!AAText_2.Text.Contains("."))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("형식에 맞게 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        AAText_1.Focus();
+
+                        return;
+                    }
+                    else if(!AAText_3.Text.Contains("."))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("형식에 맞게 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        AAText_1.Focus();
+
+                        return;
+                    }
+
+                    if (RModel.Direction == "U" || RModel.Direction == "D")
+                        sendText = AAText_1.Text;
+                    else if(RModel.Direction == "R" || RModel.Direction == "L")
+                        sendText = AAText_2.Text;
+                    else if(RModel.Direction == "A")
+                        sendText = AAText_3.Text;
+
+                    RModel.Value = double.Parse(sendText).ToString();
+
+                    CommandWrite(string.Format("AASEND-{0}{1}",RModel.Direction,RModel.Value));
+
                     break;
             }
         }
@@ -874,6 +1076,8 @@ namespace ExcavationControl.Views
             //}
         }
 
+        #region TextBox 관련
+
         private void HText_TextChanged(object sender, TextChangedEventArgs e)
         {
             
@@ -918,7 +1122,6 @@ namespace ExcavationControl.Views
                         string Content = string.Format("0 ~ 100 사이의 숫자를 입력해주세요!");
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
-
                     }
 
                     return;
@@ -1021,5 +1224,7 @@ namespace ExcavationControl.Views
                 }
             }
         }
+
+        #endregion
     }
 }
