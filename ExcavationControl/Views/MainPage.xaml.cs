@@ -1027,6 +1027,8 @@ namespace ExcavationControl.Views
 
         #endregion
 
+        #region 페이지 이벤트 함수
+
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Size OldSize = e.PreviousSize;
@@ -1076,24 +1078,13 @@ namespace ExcavationControl.Views
             //}
         }
 
+        #endregion
+
         #region TextBox 관련
 
+        #region Head Cutter Text 이벤트 함수
+
         private void HText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
-        private void SText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void CText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void EText_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
@@ -1128,6 +1119,14 @@ namespace ExcavationControl.Views
                 }
             }
         }
+        #endregion
+
+        #region Screw Cutter Text 이벤트 함수
+
+        private void SText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
 
         private void SText_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1159,6 +1158,14 @@ namespace ExcavationControl.Views
                     return;
                 }
             }
+        }
+        #endregion
+
+        #region Conveyor Belt Text 이벤트 함수
+
+        private void CText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         private void CText_KeyDown(object sender, KeyEventArgs e)
@@ -1193,6 +1200,15 @@ namespace ExcavationControl.Views
             }
         }
 
+        #endregion
+
+        #region Excavation Text 이벤트 함수
+
+        private void EText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
         private void EText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -1224,6 +1240,7 @@ namespace ExcavationControl.Views
                 }
             }
         }
+        #endregion
 
         #endregion
     }
