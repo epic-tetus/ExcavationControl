@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ExcavationControl.Views"
              xmlns:my="clr-namespace:ExcavationControl.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="310" d:DesignWidth="310"
+             d:DesignHeight="300" d:DesignWidth="300"
              Background="Transparent">
     <UserControl.Resources>
         <my:ValueAngleConverter x:Key="valueAngleConverter"/>
@@ -23,54 +23,61 @@
             <RowDefinition Height="0.9*"/>
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>-->
-        
-        <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+
+        <!--<Ellipse Grid.Column="0" Grid.Row="0" Margin="-2 -2 2 2">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="../Assets/Tick_1.png"/>
+                <ImageBrush ImageSource="../Assets/Tick_Advanced.png"/>
             </Ellipse.Fill>
-        </Ellipse>
-        <Slider Name="knob" Grid.Column="1" Grid.Row="1" Margin="6" Minimum="0" Maximum="120" ValueChanged="knob_ValueChanged">
-            <Slider.Template>
-                <ControlTemplate>
-                    <Viewbox>
-                        <Canvas Width="300" Height="300" Margin="5">
-                            <Ellipse Fill="Silver" Width="300" Height="300" Canvas.Left="0" Canvas.Top="0"
+        </Ellipse>-->
+        <Border CornerRadius="45" Padding="26">
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/Tick_Advanced1.png" Stretch="UniformToFill"/>
+            </Border.Background>
+            
+            <Slider Name="knob" Grid.Column="1" Grid.Row="1" Minimum="0" Maximum="120" ValueChanged="knob_ValueChanged">
+                <Slider.Template>
+                    <ControlTemplate>
+                        <Viewbox>
+                            <Canvas Width="300" Height="300" Margin="5">
+                                <Ellipse Fill="Silver" Width="300" Height="300" Canvas.Left="0" Canvas.Top="0"
                                      Stroke="DarkGray" StrokeThickness="5"
                                      MouseLeftButtonUp="Ellipse_MouseLeftButtonUp"
                                      MouseMove="Ellipse_MouseMove"/>
-                            <!--<Ellipse Fill="Black" Width="60" Height="60" Canvas.Left="120" Canvas.Top="120"/>-->
-                            <Canvas>
-                                <Line Stroke="White" StrokeThickness="10" X1="150" Y1="150" X2="150" Y2="10"
+                                <!--<Ellipse Fill="Black" Width="60" Height="60" Canvas.Left="120" Canvas.Top="120"/>-->
+                                <Canvas>
+                                    <Line Stroke="White" StrokeThickness="10" X1="150" Y1="150" X2="150" Y2="10"
                                       MouseLeftButtonUp="Ellipse_MouseLeftButtonUp"/>
-                                <Rectangle Fill="Transparent" Width="30" Height="140" Canvas.Left="135" Canvas.Top="5"
+                                    <Rectangle Fill="Transparent" Width="30" Height="140" Canvas.Left="135" Canvas.Top="5"
                                            MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"
                                            MouseLeftButtonUp="Ellipse_MouseLeftButtonUp"/>
-                                <Rectangle Fill="White" Width="10" Height="140" Canvas.Left="145.000000000000014" Canvas.Top="5" 
+                                    <Rectangle Fill="White" Width="10" Height="140" Canvas.Left="145.000000000000014" Canvas.Top="5" 
                                            MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"
                                            MouseLeftButtonUp="Ellipse_MouseLeftButtonUp">
-                                    <Rectangle.ToolTip>
-                                        <ToolTip>
-                                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                        <Rectangle.ToolTip>
+                                            <ToolTip>
+                                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
                                                      Path="Value" Converter="{StaticResource valueTextConverter}"/>
-                                        </ToolTip>
-                                    </Rectangle.ToolTip>
-                                </Rectangle>
-                                <Canvas.RenderTransform>
-                                    <RotateTransform CenterX="150" CenterY="150">
-                                        <RotateTransform.Angle>
-                                            <MultiBinding Converter="{StaticResource valueAngleConverter}">
-                                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Value"/>
-                                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Minimum"/>
-                                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Maximum"/>
-                                            </MultiBinding>
-                                        </RotateTransform.Angle>
-                                    </RotateTransform>
-                                </Canvas.RenderTransform>
+                                            </ToolTip>
+                                        </Rectangle.ToolTip>
+                                    </Rectangle>
+                                    <Canvas.RenderTransform>
+                                        <RotateTransform CenterX="150" CenterY="150">
+                                            <RotateTransform.Angle>
+                                                <MultiBinding Converter="{StaticResource valueAngleConverter}">
+                                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Value"/>
+                                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Minimum"/>
+                                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Maximum"/>
+                                                </MultiBinding>
+                                            </RotateTransform.Angle>
+                                        </RotateTransform>
+                                    </Canvas.RenderTransform>
+                                </Canvas>
                             </Canvas>
-                        </Canvas>
-                    </Viewbox>
-                </ControlTemplate>
-            </Slider.Template>
-        </Slider>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Slider.Template>
+            </Slider>
+        </Border>
+        
     </Grid>
 </UserControl>

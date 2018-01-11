@@ -6,12 +6,16 @@
       xmlns:local="clr-namespace:ExcavationControl.Views"
       xmlns:knob="clr-namespace:ExcavationControl.Views"
       mc:Ignorable="d" 
-      
       SizeChanged="Page_SizeChanged"
       Title="MainPage" Background="White"
-      FontSize="16">
+      FontSize="12">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.45*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.2*"/>
@@ -20,7 +24,7 @@
 
 
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.7*"/>
@@ -35,16 +39,18 @@
                         <RowDefinition Height="0.4*"/>
                         <RowDefinition Height="0.6*"/>
                     </Grid.RowDefinitions>
+                    
                     <Label Grid.Row="0" 
                                    VerticalAlignment="Center"
-                                   FontWeight="Bold">-Auto Control Set(Straight)</Label>
-                    <TextBox x:Name="AutoControlBox" 
-                                     Grid.Row="1"
-                                     Margin="40,0,39.6,0" Padding="40 0 5 0"
-                                     BorderBrush="Black" BorderThickness="1.5"
-                                     Background="LightGray" Foreground="White"
-                                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                                     HorizontalContentAlignment="Right" VerticalContentAlignment="Center">00 kN</TextBox>
+                                   FontWeight="Bold" FontSize="16">-Auto Control Set(Straight)</Label>
+                    <TextBox x:Name="AutoControlBox"
+                             Grid.Row="1"
+                             FontSize="16"
+                             Margin="40,0,39.6,0" Padding="40 0 5 0"
+                             BorderBrush="Black" BorderThickness="1.5"
+                             Background="LightGray" Foreground="White"
+                             HorizontalAlignment="Center" VerticalAlignment="Center"
+                             HorizontalContentAlignment="Right" VerticalContentAlignment="Center">00 kN</TextBox>
                 </Grid>
             </Border>
 
@@ -61,7 +67,8 @@
                         <RowDefinition Height="0.1*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" FontWeight="Bold">-Articulation Angle</Label>
+                    <Label Grid.Row="0" 
+                           FontWeight="Bold" FontSize="16">-Articulation Angle</Label>
 
                     <!--방향 + 결과 가로 그리드-->
                     <Grid Grid.Row="1">
@@ -83,14 +90,16 @@
 
                             <ToggleButton x:Uid="0"
                                                   Grid.Column="0"
-                                                  Margin="10 5"
+                                          FontSize="16"
+                                                  Margin="5 5"
                                                   BorderBrush="Black" 
                                                   VerticalAlignment="Center"
                                                   Background="SkyBlue" Foreground="White" 
                                                   Click="RPButton_Clicked" >Up</ToggleButton>
                             <ToggleButton x:Uid="1" 
                                                   Grid.Column="1" 
-                                                  Margin="10 5" 
+                                          FontSize="16"
+                                                  Margin="5 5" 
                                                   BorderBrush="Black" 
                                                   VerticalAlignment="Center" 
                                                   Background="SkyBlue" Foreground="White" 
@@ -106,14 +115,16 @@
 
                             <ToggleButton x:Uid="2"
                                             Grid.Column="0"
-                                            Margin="10 5"
+                                          FontSize="16"
+                                            Margin="5 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
                                             Click="RPButton_Clicked">Right</ToggleButton>
                             <ToggleButton x:Uid="3"
                                             Grid.Column="1" 
-                                            Margin="10 5"
+                                          FontSize="16"
+                                            Margin="5 5"
                                             BorderBrush="Black" 
                                             VerticalAlignment="Center"
                                             Background="SkyBlue" Foreground="White" 
@@ -121,16 +132,18 @@
                         </Grid>
 
                         <TextBox x:Name="AAText_1"
+                                 FontSize="16"
                                          Grid.Column="1" Grid.Row="0"
-                                         Margin="10 0" VerticalAlignment="Center"
+                                         Margin="5 0" VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
                                          Background="LightGray" Foreground="White">
                             000.0º
                         </TextBox>
                         <TextBox x:Name="AAText_2"
+                                 FontSize="16"
                                          Grid.Column="1" Grid.Row="1"
-                                         Margin="10 0" VerticalAlignment="Center"
+                                         Margin="5 0" VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
                                          Background="LightGray" Foreground="White">
@@ -151,6 +164,7 @@
                             </Grid.ColumnDefinitions>
                             <Button x:Uid="4" 
                                             Grid.Column="1" 
+                                    FontSize="16"
                                             BorderBrush="Black"
                                             Background="SkyBlue" Foreground="White"
                                             VerticalAlignment="Center"
@@ -160,7 +174,8 @@
 
                         <TextBox x:Name="AAText_3"
                                        Grid.Column="1" Grid.RowSpan="2"
-                                         Margin="10 0"
+                                 FontSize="16"
+                                         Margin="5 0"
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
                                          BorderBrush="Black" BorderThickness="1.5"
@@ -181,26 +196,27 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.RowSpan="2" 
-                                       FontWeight="Bold"
+                                       FontWeight="Bold" FontSize="16"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        TextAlignment="Center"
                                        >-Jack<LineBreak />Force
                         </TextBlock>
 
                         <TextBlock Grid.Column="1" Grid.Row="0" 
-                                       FontWeight="Bold"
+                                       FontWeight="Bold" FontSize="16"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        >Right
                         </TextBlock>
 
                         <TextBlock Grid.Column="1" Grid.Row="1" 
-                                           FontWeight="Bold"
+                                           FontWeight="Bold" FontSize="16"
                                            HorizontalAlignment="Center" VerticalAlignment="Center">
                                     Left
                         </TextBlock>
 
                         <TextBox x:Name="JRText"
                                          Grid.Column="2" Grid.Row="0"
+                                 FontSize="16"
                                          Margin="10 0"
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
@@ -210,6 +226,7 @@
                         </TextBox>
                         <TextBox x:Name="JLText"
                                          Grid.Column="2" Grid.Row="1"
+                                 FontSize="16"
                                          Margin="10 0"
                                          VerticalAlignment="Center"
                                          HorizontalContentAlignment="Center"
@@ -222,13 +239,14 @@
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*"/>
-                            <ColumnDefinition Width="0.2*"/>
-                            <ColumnDefinition Width="0.3*"/>
-                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="0.1*"/>
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Uid="5"
                                         Grid.Column="2" 
+                                FontSize="16"
                                         Background="SkyBlue" Foreground="White" 
                                         VerticalAlignment="Center" 
                                         Padding="10 0" Click="RPButton_Clicked">
@@ -254,11 +272,11 @@
             <!--Head Cutter 노브 그리드-->
 
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2">
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="2">
                 <Grid x:Name="HCGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.4*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="0.1*"/>
                         <RowDefinition Height="0.1*"/>
@@ -268,15 +286,15 @@
                                    Background="Black" Foreground="White" 
                                    Margin="5 2.5" Padding="0"
                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                   FontWeight="Bold">Head Cutter</Label>
+                                   FontWeight="Bold" FontSize="16">Head Cutter</Label>
 
                     <Label Grid.Row="1" 
                            
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                     <knob:KnobControl x:Name="HCKnob" 
-                                      Grid.Row="1"
-                                      Width="Auto"
+                                      Grid.Row="0" Grid.RowSpan="3"
+                                      
                                       VerticalAlignment="Center" HorizontalAlignment="Center">
                         <knob:KnobControl.LayoutTransform>
                             <RotateTransform Angle="210"/>
@@ -330,7 +348,8 @@
                                  FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
-                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 TextChanged="HText_TextChanged" KeyDown="HText_KeyDown">
                             0
                         </TextBox>
 
@@ -350,8 +369,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Direction.</Label>
+                               FontWeight="Bold"  FontSize="10"
+                               Margin="10 2" Padding="0">- Direction.</Label>
                         <ToggleButton x:Uid="2" 
                                           Grid.Column="0" Grid.Row="1"
                                           Margin="10 0 5 5"
@@ -377,7 +396,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                               Margin="10 2" Padding="0">- Start / Stop</Label>
                         <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -402,24 +421,24 @@
                 <Grid x:Name="SCGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.4*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.10*"/>
-                        <RowDefinition Height="0.10*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
                     </Grid.RowDefinitions>
 
                     <Label Name="SLabel" 
                                    Background="Black" Foreground="White" 
                                    Margin="5 2.5" Padding="0"
                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                   FontWeight="Bold">Screw Conveyer</Label>
+                                   FontWeight="Bold" FontSize="16">Screw Conveyer</Label>
 
                     <Label Grid.Row="1" 
                             
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                     <knob:KnobControl x:Name="SCKnob" 
-                                  Grid.Row="1" Width="Auto"
+                                  Grid.Row="0" Grid.RowSpan="3"
                                   VerticalAlignment="Center" HorizontalAlignment="Center">
                         <knob:KnobControl.LayoutTransform>
                             <RotateTransform Angle="210"/>
@@ -473,7 +492,8 @@
                                  FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
-                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 TextChanged="SText_TextChanged" KeyDown="SText_KeyDown">
                             0
                         </TextBox>
 
@@ -492,8 +512,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Direction.</Label>
+                               FontWeight="Bold"  FontSize="10"
+                               Margin="10 2" Padding="0">- Direction.</Label>
                         <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -518,8 +538,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                               FontWeight="Bold" FontSize="10"
+                               Margin="10 2" Padding="0">- Start / Stop</Label>
                         <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -544,23 +564,23 @@
                 <Grid Grid.Column="2" x:Name="CBGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.4*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.10*"/>
-                        <RowDefinition Height="0.10*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
                     </Grid.RowDefinitions>
 
                     <Label Name="CLabel"
                                    Background="Black" Foreground="White" 
                                    Margin="5 2.5" Padding="0"
                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                   FontWeight="Bold">Conveyor Belt</Label>
+                                   FontWeight="Bold" FontSize="16">Conveyor Belt</Label>
 
                     <Label Grid.Row="1" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                     <knob:KnobControl x:Name="CBKnob" 
-                              Grid.Row="1" Width="Auto"
+                              Grid.Row="0" Grid.RowSpan="3"
                               VerticalAlignment="Center" HorizontalAlignment="Center">
                         <knob:KnobControl.LayoutTransform>
                             <RotateTransform Angle="210"/>
@@ -612,7 +632,8 @@
                                  FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
-                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 TextChanged="CText_TextChanged" KeyDown="CText_KeyDown">
                             0
                         </TextBox>
 
@@ -633,8 +654,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Direction.</Label>
+                               FontWeight="Bold" FontSize="10"
+                               Margin="10 2" Padding="0">- Direction.</Label>
                         <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -658,9 +679,10 @@
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                               FontWeight="Bold" FontSize="10"
+                               Margin="10 2" Padding="0">- Start / Stop</Label>
                         <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -685,24 +707,24 @@
                 <Grid Grid.Column="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.5*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="0.15*"/>
-                        <RowDefinition Height="0.15*"/>
-                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.14*"/>
+                        <RowDefinition Height="0.14*"/>
+                        <RowDefinition Height="0.14*"/>
                     </Grid.RowDefinitions>
 
                     <Label Name="ELabel"
                                    Background="Black" Foreground="White" 
                                    Margin="5 2.5" Padding="0"
                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                   FontWeight="Bold">Excavation</Label>
+                                   FontWeight="Bold" FontSize="16">Excavation</Label>
 
                     <Label Grid.Row="1" 
                            HorizontalAlignment="Center">Speed Control (%)</Label>
 
                     <knob:KnobControl x:Name="EXKnob" 
-                              Grid.Row="1" Width="Auto"
+                              Grid.Row="0" Grid.RowSpan="3"
                               VerticalAlignment="Center" HorizontalAlignment="Center">
                         <knob:KnobControl.LayoutTransform>
                             <RotateTransform Angle="210"/>
@@ -756,7 +778,8 @@
                                  FontWeight="Bold"
                                  Padding="0 5 0 5"
                                  VerticalAlignment="Center"
-                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 TextChanged="EText_TextChanged" KeyDown="EText_KeyDown">
                             0
                         </TextBox>
 
@@ -775,8 +798,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold" 
-                               Margin="10 0" Padding="0">- Direction.</Label>
+                               FontWeight="Bold" FontSize="10"
+                               Margin="10 2" Padding="0">- Direction.</Label>
                         <ToggleButton x:Uid="2"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -801,8 +824,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                               FontWeight="Bold"
-                               Margin="10 0" Padding="0">- Start / Stop</Label>
+                               FontWeight="Bold" FontSize="10"
+                               Margin="10 2" Padding="0">- Start / Stop</Label>
                         <ToggleButton x:Uid="4"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -826,8 +849,8 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" 
-                                   FontWeight="Bold"
-                                   Margin="10 0" Padding="0">- Auto / Manual</Label>
+                                   FontWeight="Bold" FontSize="10"
+                                   Margin="10 2" Padding="0">- Auto / Manual</Label>
                         <ToggleButton x:Uid="6"
                                 Grid.Column="0" Grid.Row="1" 
                                 Margin="10 0 5 5"
@@ -845,5 +868,12 @@
             </Border>
 
         </Grid>
+
+        <!--출력 화면-->
+
+        <Grid Grid.Row="1"  ShowGridLines="False" Margin="10">
+            <Image Source="../Assets/Excavation.png" Stretch="Uniform"/>
+        </Grid>
+
     </Grid>
 </Page>

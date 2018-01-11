@@ -136,5 +136,15 @@
   <ItemGroup>
     <Resource Include="Assets\Tick_1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Tick_Advanced.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Tick_Advanced1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

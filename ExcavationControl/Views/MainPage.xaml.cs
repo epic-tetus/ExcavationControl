@@ -60,6 +60,7 @@ namespace ExcavationControl.Views
         #endregion
 
         #region 사용자 정의 함수
+
         private void CommandWrite(string command)
         {
             try
@@ -81,6 +82,25 @@ namespace ExcavationControl.Views
             {
                 Debug.WriteLine("전송 실패!");
             }
+        }
+
+        private int GetRoundValue(decimal d)
+        {
+            Array array = new int[21] { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
+
+            int rowValue = (int)Math.Round(d);
+
+            int index;
+
+            if (rowValue % 5 > (5 / 2))
+                index = rowValue / 5 + 1;
+            else 
+                index = rowValue / 5;
+
+            if (rowValue >= 101 || rowValue < 0)
+                return (int)array.GetValue(-1);
+
+            return (int)array.GetValue(index);
         }
         #endregion
 
@@ -134,8 +154,9 @@ namespace ExcavationControl.Views
             if (value <= 120 && value >= 101)
                 return;
 
-            HText.Text = Math.Round(HCKnob.knob.Value).ToString();
+            HCKnob.knob.Value = GetRoundValue(value);
 
+            HText.Text = Math.Round(HCKnob.knob.Value).ToString();
         }
 
         private void SCKnob_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -144,6 +165,8 @@ namespace ExcavationControl.Views
 
             if (value <= 120 && value >= 101)
                 return;
+
+            SCKnob.knob.Value = GetRoundValue(value);
 
             SText.Text = Math.Round(SCKnob.knob.Value).ToString();
         }
@@ -155,6 +178,8 @@ namespace ExcavationControl.Views
             if (value <= 120 && value >= 101)
                 return;
 
+            CBKnob.knob.Value = GetRoundValue(value);
+
             CText.Text = Math.Round(CBKnob.knob.Value).ToString();
         }
 
@@ -164,6 +189,8 @@ namespace ExcavationControl.Views
 
             if (value <= 120 && value >= 101)
                 return;
+
+            EXKnob.knob.Value = GetRoundValue(value);
 
             EText.Text = Math.Round(EXKnob.knob.Value).ToString();
         }
@@ -306,8 +333,8 @@ namespace ExcavationControl.Views
 
                     CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.SliderValue));
 
-                    OutputWindow outputWindow = new OutputWindow();
-                    outputWindow.Owner = this;
+                    //OutputWindow outputWindow = new OutputWindow();
+                    //outputWindow.Owner = this;
 
                     break;
             }
@@ -845,6 +872,154 @@ namespace ExcavationControl.Views
             //        FontSize = FontSize - Math.Round((OldSize.Width - NowSize.Width)/100);
             //    return;
             //}
+        }
+
+        private void HText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void SText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void CText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void EText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void HText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                try
+                {
+                    int value = int.Parse(HText.Text);
+
+                    HCKnob.knob.Value = GetRoundValue(value);
+
+                    HText.Text = Math.Round(HCKnob.knob.Value).ToString();
+                }
+                catch
+                {
+                    if (!HText.Text.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("0 ~ 100 사이의 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        private void SText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    int value = int.Parse(HText.Text);
+
+                    SCKnob.knob.Value = GetRoundValue(value);
+
+                    SText.Text = Math.Round(SCKnob.knob.Value).ToString();
+                }
+                catch
+                {
+                    if (!SText.Text.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("0 ~ 100 사이의 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        private void CText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    int value = int.Parse(HText.Text);
+
+                    CBKnob.knob.Value = GetRoundValue(value);
+
+                    CText.Text = Math.Round(CBKnob.knob.Value).ToString();
+                }
+                catch
+                {
+                    if (!CText.Text.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("0 ~ 100 사이의 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        private void EText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    int value = int.Parse(HText.Text);
+
+                    EXKnob.knob.Value = GetRoundValue(value);
+
+                    EText.Text = Math.Round(EXKnob.knob.Value).ToString();
+                }
+                catch
+                {
+                    if (!EText.Text.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = string.Format("0 ~ 100 사이의 숫자를 입력해주세요!");
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                    }
+
+                    return;
+                }
+            }
         }
     }
 }
