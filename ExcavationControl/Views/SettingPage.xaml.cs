@@ -80,9 +80,17 @@ namespace ExcavationControl.Views
 
                 NavigationService.Navigate(mainPage);
 
-                Application.Current.MainWindow.MinWidth = 1370;
+                Application.Current.MainWindow.MinWidth = 1436;
 
-                Application.Current.MainWindow.MinHeight = 920;
+                Application.Current.MainWindow.MinHeight = 1005;
+
+                Application.Current.MainWindow.Width = 1446;
+
+                Application.Current.MainWindow.Height = 1015;
+
+                //Application.Current.MainWindow.MaxWidth = 1406;
+
+                //Application.Current.MainWindow.MaxHeight = 980;
 
                 //MainWindow._Serial.PortName = serial.PortName;
                 //MainWindow._Serial.BaudRate = serial.BaudRate;

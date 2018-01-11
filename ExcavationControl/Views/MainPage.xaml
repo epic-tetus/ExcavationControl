@@ -8,23 +8,26 @@
       mc:Ignorable="d" 
       SizeChanged="Page_SizeChanged"
       Title="MainPage" Background="White"
-      FontSize="12">
+      FontSize="12"
+      Width="1406" Height="980">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.45*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
+
+
         <!--설정 부분-->
 
 
 
-        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.7*"/>
@@ -39,7 +42,7 @@
                         <RowDefinition Height="0.4*"/>
                         <RowDefinition Height="0.6*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Label Grid.Row="0" 
                                    VerticalAlignment="Center"
                                    FontWeight="Bold" FontSize="16">-Auto Control Set(Straight)</Label>
@@ -259,7 +262,7 @@
         </Grid>
 
 
-        <!--노브 부분--> 
+        <!--노브 부분-->
         <Grid Grid.Row="0" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.175*"/>
@@ -679,7 +682,7 @@
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <Label Grid.Column="0" Grid.Row="0" 
                                FontWeight="Bold" FontSize="10"
                                Margin="10 2" Padding="0">- Start / Stop</Label>
@@ -871,8 +874,149 @@
 
         <!--출력 화면-->
 
-        <Grid Grid.Row="1"  ShowGridLines="False" Margin="10">
-            <Image Source="../Assets/Excavation.png" Stretch="Uniform"/>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False" Margin="10" VerticalAlignment="Bottom">
+            <Image Source="../Assets/Excavation (1).png" 
+                   Stretch="Uniform"/>
+            <TextBox x:Name="LoadR1" 
+                     HorizontalAlignment="Left" Height="54" 
+                     TextWrapping="Wrap"  
+                     VerticalAlignment="Top" Width="103" 
+                     Margin="317,21,0,0" Padding="0 0 10 0"
+                     BorderBrush="DarkRed" BorderThickness="2" 
+                     Background="Black" Foreground="Red"
+                     FontSize="28" FontWeight="ExtraBold"
+                     HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                     Text="00"/>
+            <TextBox x:Name="LoadR2" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="481,21,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FR1" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="735,21,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FR2" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="888,21,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="LoadL1" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="317,349,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="LoadL2" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="481,349,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FL1" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="735,349,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FL2" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="888,349,0,0" Padding="0 0 10 0"
+                BorderBrush="DarkRed" BorderThickness="2" 
+                Background="Black" Foreground="Red"
+                FontSize="28" FontWeight="ExtraBold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="LoadRTotal" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="569,112,0,0" Padding="0 0 10 0"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#C00000" Foreground="White"
+                FontSize="28" FontWeight="Bold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="LoadLTotal" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="569,240,0,0" Padding="0 0 10 0"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#C00000" Foreground="White"
+                FontSize="28" FontWeight="Bold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="LoadLTotal_Copy" 
+                HorizontalAlignment="Left" Height="50" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="569,176,0,0" Padding="0.25 0.13 0.25 0.13"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#0000CC" Foreground="White"
+                FontSize="28"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                Text="0.0˚"/>
+            <TextBox x:Name="FRTotal" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="888,112,0,0" Padding="0 0 10 0"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#C00000" Foreground="White"
+                FontSize="28" FontWeight="Bold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FTotal" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="104" 
+                Margin="954,176,0,0" Padding="0 0 10 0"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#C00000" Foreground="White"
+                FontSize="28" FontWeight="Bold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
+            <TextBox x:Name="FLTotal" 
+                HorizontalAlignment="Left" Height="54" 
+                TextWrapping="Wrap"  
+                VerticalAlignment="Top" Width="103" 
+                Margin="888,240,0,0" Padding="0 0 10 0"
+                BorderBrush="Black" BorderThickness="2" 
+                Background="#C00000" Foreground="White"
+                FontSize="28" FontWeight="Bold"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                Text="00"/>
         </Grid>
 
     </Grid>
