@@ -874,12 +874,12 @@
 
         <!--출력 화면-->
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False" Margin="10" VerticalAlignment="Bottom">
+        <Grid x:Name="BottomImageGrid" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False" Margin="10" VerticalAlignment="Bottom">
 
             <Image Source="../Assets/Excavation (1).png" 
                    Stretch="Uniform"/>
 
-            <TextBox x:Name="LoadR1" 
+            <TextBox x:Name="S1" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -890,7 +890,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="LoadR2" 
+            <TextBox x:Name="S2" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -901,7 +901,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="FR1" 
+            <TextBox x:Name="S5" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -912,7 +912,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="FR2" 
+            <TextBox x:Name="S6" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -923,7 +923,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="LoadL1"
+            <TextBox x:Name="S3"
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"
                      VerticalAlignment="Top" Width="103" 
@@ -934,7 +934,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="LoadL2" 
+            <TextBox x:Name="S4" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -944,7 +944,8 @@
                      FontSize="28" FontWeight="ExtraBold"
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
-            <TextBox x:Name="FL1" 
+            
+            <TextBox x:Name="S7" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -955,7 +956,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="FL2" 
+            <TextBox x:Name="S8" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -965,7 +966,8 @@
                      FontSize="28" FontWeight="ExtraBold"
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
-            <TextBox x:Name="LoadRTotal" 
+            
+            <TextBox x:Name="T1" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -976,7 +978,7 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="LoadLTotal" 
+            <TextBox x:Name="T2" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -994,11 +996,11 @@
                      Margin="569 176 0 0" Padding="0.25 0.13 0.25 0.13"
                      BorderBrush="Black" BorderThickness="2" 
                      Background="#0000CC" Foreground="White"
-                     FontSize="28"
+                     FontSize="28" FontWeight="Bold"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      Text="0.0˚" IsReadOnly="True"/>
 
-            <TextBox x:Name="FRTotal" 
+            <TextBox x:Name="F1" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
                      VerticalAlignment="Top" Width="103" 
@@ -1009,6 +1011,17 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
+            <TextBox x:Name="F2" 
+                     HorizontalAlignment="Left" Height="54" 
+                     TextWrapping="Wrap"  
+                     VerticalAlignment="Top" Width="103" 
+                     Margin="888 240 0 0" Padding="0 0 10 0"
+                     BorderBrush="Black" BorderThickness="2" 
+                     Background="#C00000" Foreground="White"
+                     FontSize="28" FontWeight="Bold"
+                     HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+                     Text="00" IsReadOnly="True"/>
+            
             <TextBox x:Name="FTotal" 
                      HorizontalAlignment="Left" Height="54" 
                      TextWrapping="Wrap"  
@@ -1020,17 +1033,6 @@
                      HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
                      Text="00" IsReadOnly="True"/>
 
-            <TextBox x:Name="FLTotal" 
-                     HorizontalAlignment="Left" Height="54" 
-                     TextWrapping="Wrap"  
-                     VerticalAlignment="Top" Width="103" 
-                     Margin="888 240 0 0" Padding="0 0 10 0"
-                     BorderBrush="Black" BorderThickness="2" 
-                     Background="#C00000" Foreground="White"
-                     FontSize="28" FontWeight="Bold"
-                     HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
-                     Text="00" IsReadOnly="True"/>
-            
             <TextBlock x:Name="XAngle"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        Margin="172 440 0 0" Padding="0"

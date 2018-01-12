@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ExcavationControl.Views
 {
@@ -34,6 +35,10 @@ namespace ExcavationControl.Views
         private SettingModel EModel;
         private SettingModel RModel;
 
+        private List<TextBox> SBoxList;
+        private List<TextBox> TBoxList;
+        private List<TextBox> FBoxList;
+
         #endregion
 
         #region 생성자
@@ -45,8 +50,6 @@ namespace ExcavationControl.Views
             _Serial = serial;
             _Serial.DataReceived += _Serial_DataReceived;
 
-            //Application.Current.MainWindow.WindowState = WindowState.Maximized;
-
             HCKnob.knob.ValueChanged += HCKnob_ValueChanged;
             SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
             CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
@@ -57,6 +60,41 @@ namespace ExcavationControl.Views
             CModel = new SettingModel();
             EModel = new SettingModel();
             RModel = new SettingModel();
+
+            SBoxList = new List<TextBox>();
+            TBoxList = new List<TextBox>();
+            FBoxList = new List<TextBox>();
+
+            for (int i = 1; i < 9; i++)
+            {
+                var ChildBox = VisualTreeHelper.GetChild(BottomImageGrid, i) as UIElement;
+
+                SBoxList.Add((TextBox)ChildBox);
+
+                Debug.WriteLine(((TextBox)ChildBox).Name);
+            }
+
+            for(int i = 1; i < 3; i++)
+            {
+                var ChildBox = VisualTreeHelper.GetChild(BottomImageGrid, i + 8) as UIElement;
+
+                TBoxList.Add((TextBox)ChildBox);
+
+                Debug.WriteLine(((TextBox)ChildBox).Name);
+            }
+
+            for (int i = 1; i < 3; i++)
+            {
+                var ChildBox = VisualTreeHelper.GetChild(BottomImageGrid, i + 11) as UIElement;
+
+                FBoxList.Add((TextBox)ChildBox);
+
+                Debug.WriteLine(((TextBox)ChildBox).Name);
+            }
+
+            SBoxList = SBoxList.OrderBy(x => x.Name).ToList();
+            TBoxList = TBoxList.OrderBy(x => x.Name).ToList();
+            FBoxList = FBoxList.OrderBy(x => x.Name).ToList();
         }
 
         #endregion
@@ -78,7 +116,7 @@ namespace ExcavationControl.Views
 
                 _Serial.Write(result.ToArray(), 0, result.ToArray().Length);
 
-                Debug.WriteLine("전송 성공!");
+                Debug.WriteLine(command + " 전송 성공!");
             }
             catch
             {
@@ -104,49 +142,190 @@ namespace ExcavationControl.Views
 
             return (int)array.GetValue(index);
         }
+
+        private void FindTextBox(string s)
+        {
+            string indicater = s.Remove(2);
+            double value = double.Parse(s.Replace(indicater, string.Empty));
+
+            Debug.WriteLine(string.Format("indicater : {0}, value : {1}", indicater, value));
+
+            if (indicater.Contains("S"))
+            {
+                foreach(var data in SBoxList)
+                    if (data.Name.Equals(indicater))
+                        data.Text = value.ToString();
+            }
+
+            else if (indicater.Contains("T"))
+            {
+                foreach (var data in TBoxList)
+                    if (data.Name.Equals(indicater))
+                        data.Text = value.ToString();
+
+                Angle.Text = (double.Parse(T1.Text) + double.Parse(T2.Text)).ToString();
+            }
+
+            else if (indicater.Contains("F"))
+            {
+                foreach (var data in FBoxList)
+                    if (data.Name.Equals(indicater))
+                        data.Text = value.ToString();
+
+                FTotal.Text = (double.Parse(F1.Text) + double.Parse(F2.Text)).ToString();
+            }
+        }
+
         #endregion
 
         #region 시리얼 이벤트 함수
+
         private void _Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var receivedData = _Serial.ReadExisting();
 
             Debug.WriteLine("받은 데이터 : " + receivedData);
 
-            if (receivedData.Equals("HCSTART-OK"))
+            if (receivedData.Contains("HCSTART-OK"))
                 Debug.WriteLine("HC 시작 성공!");
 
-            else if (receivedData.Equals("SCSTART-OK"))
+            else if (receivedData.Contains("SCSTART-OK"))
                 Debug.WriteLine("SC 시작 성공!");
 
-            else if (receivedData.Equals("CBSTART-OK"))
+            else if (receivedData.Contains("CBSTART-OK"))
                 Debug.WriteLine("CB 시작 성공!");
 
-            else if (receivedData.Equals("EXSTART-OK"))
+            else if (receivedData.Contains("EXSTART-OK"))
                 Debug.WriteLine("EX 시작 성공!");
 
-            else if (receivedData.Equals("EXAUTO-OK"))
+            else if (receivedData.Contains("EXAUTO-OK"))
                 Debug.WriteLine("EX 자동 시작 성공!");
 
-            else if (receivedData.Equals("HCSTART-OK"))
+            else if (receivedData.Contains("HCSTART-OK"))
                 Debug.WriteLine("EX 지침 시작 성공!");
 
-            else if (receivedData.Equals("HCSTOP-OK"))
+            else if (receivedData.Contains("HCSTOP-OK"))
                 Debug.WriteLine("HC 정지 성공!");
 
-            else if (receivedData.Equals("SCSTOP-OK"))
+            else if (receivedData.Contains("SCSTOP-OK"))
                 Debug.WriteLine("SC 정지 성공!");
 
-            else if (receivedData.Equals("CBSTOP-OK"))
+            else if (receivedData.Contains("CBSTOP-OK"))
                 Debug.WriteLine("CB 정지 성공!");
 
-            else if (receivedData.Equals("EXSTOP-OK"))
+            else if (receivedData.Contains("EXSTOP-OK"))
                 Debug.WriteLine("EX 정지 성공!");
-            else if (receivedData.Equals("AASEND-OK"))
+
+            else if (receivedData.Contains("AASEND-OK"))
                 Debug.WriteLine("AA 전송 성공!");
-            else
+
+            if (receivedData.Contains("SP-"))
+            {
                 Debug.WriteLine(receivedData);
 
+                List<string> CriteriaList = new List<string>();
+
+                for (int i = 0; i < 8; i++)
+                    CriteriaList.Add("S" + (i + 1));
+
+                foreach (var data in CriteriaList)
+                {
+                    int startIndex = receivedData.IndexOf(data);
+
+                    string result = receivedData.Substring(startIndex, 6);
+
+                    Debug.WriteLine("잘라낸 문자열 : " + result);
+
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        FindTextBox(result);
+                    }));
+                }
+
+                CommandWrite("SP-OK");
+
+            }
+
+            if (receivedData.Contains("RS-"))
+            {
+                Debug.WriteLine(receivedData);
+
+                List<string> CriteriaList = new List<string>();
+
+                for (int i = 0; i < 2; i++)
+                    CriteriaList.Add("T" + (i + 1));
+
+                foreach (var data in CriteriaList)
+                {
+                    int startIndex = receivedData.IndexOf(data);
+
+                    string result = receivedData.Substring(startIndex, 6);
+
+                    Debug.WriteLine("잘라낸 문자열 : " + result);
+
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        FindTextBox(result);
+                    }));
+                }
+
+                CommandWrite("RS-OK");
+
+            }
+            if (receivedData.Contains("RF-"))
+            {
+                Debug.WriteLine(receivedData);
+
+                List<string> CriteriaList = new List<string>();
+
+                for (int i = 0; i < 2; i++)
+                    CriteriaList.Add("F" + (i + 1));
+
+                foreach (var data in CriteriaList)
+                {
+                    int startIndex = receivedData.IndexOf(data);
+
+                    string result = receivedData.Substring(startIndex, 6);
+
+                    Debug.WriteLine("잘라낸 문자열 : " + result);
+
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        FindTextBox(result);
+                    }));
+                }
+
+                CommandWrite("RF-OK");
+            }
+            if (receivedData.Contains("IS-"))
+            {
+                int startIndex = receivedData.IndexOf("X");
+
+                string x = receivedData.Substring(startIndex, 6);
+
+                x = x.Replace("X", "");
+
+                startIndex = receivedData.IndexOf("Y");
+
+                string y = receivedData.Substring(startIndex, 6);
+
+                y = y.Replace("Y", "");
+
+                startIndex = receivedData.IndexOf("Z");
+
+                string z = receivedData.Substring(startIndex, 6);
+
+                z = z.Replace("Z", "");
+
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    XAngle.Text = double.Parse(x).ToString();
+                    YAngle.Text = double.Parse(y).ToString();
+                    ZAngle.Text = double.Parse(z).ToString();
+                }));
+
+                CommandWrite("IS-OK");
+            }
         }
         #endregion
 
@@ -341,10 +520,9 @@ namespace ExcavationControl.Views
 
                     HModel.Value = string.Format("{0:000}", int.Parse(HText.Text));
 
-                    CommandWrite(string.Format("HCSTART-{0}{1}",HModel.Direction,HModel.Value));
+                    string checkString = string.Format("HCSTART-{0}{1}", HModel.Direction, HModel.Value);
 
-                    //OutputWindow outputWindow = new OutputWindow();
-                    //outputWindow.Owner = this;
+                    CommandWrite(checkString);
 
                     break;
             }
@@ -1016,7 +1194,7 @@ namespace ExcavationControl.Views
                     else if(RModel.Direction == "A")
                         sendText = AAText_3.Text;
 
-                    RModel.Value = double.Parse(sendText).ToString();
+                    RModel.Value = string.Format("{0:000.0}", double.Parse(sendText.Replace("˚",string.Empty)));
 
                     CommandWrite(string.Format("AASEND-{0}{1}",RModel.Direction,RModel.Value));
 
