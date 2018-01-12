@@ -80,9 +80,9 @@ namespace ExcavationControl.Views
 
                 NavigationService.Navigate(mainPage);
 
-                Application.Current.MainWindow.MinWidth = 1436;
+                Application.Current.MainWindow.MinWidth = 1236;
 
-                Application.Current.MainWindow.MinHeight = 1005;
+                Application.Current.MainWindow.MinHeight = 805;
 
                 Application.Current.MainWindow.Width = 1446;
 
@@ -125,6 +125,7 @@ namespace ExcavationControl.Views
         {
             try
             {
+       
                 _PortName = PortCombo.SelectedItem.ToString();
             }
             catch (NullReferenceException nre)

@@ -1,9 +1,11 @@
 ﻿using ExcavationControl.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -99,24 +101,49 @@ namespace ExcavationControl.Views
 
         #endregion
 
+        
+
         #region 사용자 정의 함수
 
         private void CommandWrite(string command)
         {
             try
             {
-                byte[] ConvertedString = Encoding.Default.GetBytes(command + "\r");
+                byte[] ConvertedString = Encoding.Default.GetBytes(command);
 
                 byte[] STX = new byte[1] { 0x02 };
                 byte[] ETX = new byte[1] { 0x03 };
                 byte[] CR = new byte[1] { 0x0D };
                 byte[] LF = new byte[1] { 0x0A };
 
-                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(ETX);
+                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(CR).Concat(ETX);
 
                 _Serial.Write(result.ToArray(), 0, result.ToArray().Length);
 
-                Debug.WriteLine(command + " 전송 성공!");
+                Debug.WriteLine(command + "전송 성공!");
+            }
+            catch
+            {
+                Debug.WriteLine("전송 실패!");
+            }
+        }
+
+        private void CommandWriteLine(string command)
+        {
+            try
+            {
+                byte[] ConvertedString = Encoding.Default.GetBytes(command);
+
+                byte[] STX = new byte[1] { 0x02 };
+                byte[] ETX = new byte[1] { 0x03 };
+                byte[] CR = new byte[1] { 0x0D };
+                byte[] LF = new byte[1] { 0x0A };
+
+                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(CR).Concat(ETX);
+
+                _Serial.WriteLine(result.ToString());
+
+                Debug.WriteLine(command + "라인 전송 성공!");
             }
             catch
             {
@@ -184,7 +211,7 @@ namespace ExcavationControl.Views
         {
             var receivedData = _Serial.ReadExisting();
 
-            Debug.WriteLine("받은 데이터 : " + receivedData);
+            Debug.WriteLine("받은 데이터 : " + _Serial.ReadExisting());
 
             if (receivedData.Contains("HCSTART-OK"))
                 Debug.WriteLine("HC 시작 성공!");
@@ -219,10 +246,12 @@ namespace ExcavationControl.Views
             else if (receivedData.Contains("AASEND-OK"))
                 Debug.WriteLine("AA 전송 성공!");
 
+            //FindAngle(receivedData);
+
+            // 아래의 비교구문들을 실행 하면 다른 것들이 안 됨! ==> Write를 하지 않고 WriteLine을 해야 문제가 없음!
+
             if (receivedData.Contains("SP-"))
             {
-                Debug.WriteLine(receivedData);
-
                 List<string> CriteriaList = new List<string>();
 
                 for (int i = 0; i < 8; i++)
@@ -242,14 +271,18 @@ namespace ExcavationControl.Views
                     }));
                 }
 
-                CommandWrite("SP-OK");
+                _Serial.DataReceived -= _Serial_DataReceived;
+
+                CommandWriteLine("SP-OK");
+
+                _Serial.DataReceived += _Serial_DataReceived;
+
+                //CommandWrite("SP-OK");
 
             }
 
             if (receivedData.Contains("RS-"))
             {
-                Debug.WriteLine(receivedData);
-
                 List<string> CriteriaList = new List<string>();
 
                 for (int i = 0; i < 2; i++)
@@ -269,13 +302,17 @@ namespace ExcavationControl.Views
                     }));
                 }
 
-                CommandWrite("RS-OK");
+                _Serial.DataReceived -= _Serial_DataReceived;
+
+                CommandWriteLine("RS-OK");
+
+                _Serial.DataReceived += _Serial_DataReceived;
+
+                //CommandWrite("RS-OK");
 
             }
             if (receivedData.Contains("RF-"))
             {
-                Debug.WriteLine(receivedData);
-
                 List<string> CriteriaList = new List<string>();
 
                 for (int i = 0; i < 2; i++)
@@ -295,7 +332,13 @@ namespace ExcavationControl.Views
                     }));
                 }
 
-                CommandWrite("RF-OK");
+                _Serial.DataReceived -= _Serial_DataReceived;
+
+                CommandWriteLine("RF-OK");
+
+                _Serial.DataReceived += _Serial_DataReceived;
+
+                //CommandWrite("RF-OK");
             }
             if (receivedData.Contains("IS-"))
             {
@@ -324,8 +367,15 @@ namespace ExcavationControl.Views
                     ZAngle.Text = double.Parse(z).ToString();
                 }));
 
-                CommandWrite("IS-OK");
+                _Serial.DataReceived -= _Serial_DataReceived;
+
+                CommandWriteLine("IS-OK");
+
+                _Serial.DataReceived += _Serial_DataReceived;
+
+                //CommandWrite("IS-OK");
             }
+
         }
         #endregion
 
