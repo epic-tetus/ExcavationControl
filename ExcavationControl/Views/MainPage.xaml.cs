@@ -147,20 +147,25 @@ namespace ExcavationControl.Views
 
         #region 사용자 정의 함수
 
+        /// <summary>
+        /// 시리얼로 정보를 쏘는 함수
+        /// </summary>
+        /// <param name="command"></param>
+
         private void CommandWrite(string command)
         {
             try
             {
-                byte[] ConvertedString = Encoding.Default.GetBytes(command);
+                byte[] ConvertedString = Encoding.Default.GetBytes(command);        // 인자로 받은 문자열을 hex 문자열로 바꾼다.
 
-                byte[] STX = new byte[1] { 0x02 };
-                byte[] ETX = new byte[1] { 0x03 };
-                byte[] CR = new byte[1] { 0x0D };
-                byte[] LF = new byte[1] { 0x0A };
+                byte[] STX = new byte[1] { 0x02 };                                  // Start of TeXt
+                byte[] ETX = new byte[1] { 0x03 };                                  // End of TeXt
+                byte[] CR = new byte[1] { 0x0D };                                   // Carriage Return
+                byte[] LF = new byte[1] { 0x0A };                                   // Line Feed
 
-                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(CR).Concat(ETX);
+                IEnumerable<byte> result = STX.Concat(ConvertedString).Concat(CR).Concat(ETX);  // STX, 보내고 싶은 문자열, CR, ETX 순으로 문자를 붙혀 넣는다.
 
-                _Serial.Write(result.ToArray(), 0, result.ToArray().Length);
+                _Serial.Write(result.ToArray(), 0, result.ToArray().Length);                    // 시리얼로 문자를 쏜다.
 
                 Debug.WriteLine(command + "전송 성공!");
             }
@@ -169,6 +174,12 @@ namespace ExcavationControl.Views
                 Debug.WriteLine("전송 실패!");
             }
         }
+
+        /// <summary>
+        /// CommandWrite의 기능에서의 문제점을 보완하기 위한 함수, 
+        /// SerialPort.WriteLine을 제외한 내부의 내용은 모두 CommandWrite와 같다.
+        /// </summary>
+        /// <param name="command"></param>
 
         private void CommandWriteLine(string command)
         {
@@ -193,23 +204,30 @@ namespace ExcavationControl.Views
             }
         }
 
+        /// <summary>
+        /// 노브의 틱을 5씩 끊기게 하기 위한 함수
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+
         private int GetRoundValue(decimal d)
         {
+            // 아래 배열의 인수대로 틱이 나뉨
             Array array = new int[21] { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
 
-            int rowValue = (int)Math.Round(d);
+            int rawValue = (int)Math.Round(d);  // 5틱으로 나뉘기 이전 값
 
             int index;
 
-            if (rowValue % 5 > (5 / 2))
-                index = rowValue / 5 + 1;
+            if (rawValue % 5 > (5 / 2))         // rawValue를 5로 나눈 나머지가 5/2 (2.5) 보다 크면,
+                index = rawValue / 5 + 1;       // 올림 => 9 % 5 = 4, 4 > 2.5, 9 / 5 = 1, 1 + 1 = 2, array[2] = ※10
             else
-                index = rowValue / 5;
+                index = rawValue / 5;           // 내림 => 6 % 5 = 1, 1 < 2.5, 6 / 5 = 1, array[1] = ※5
+            
+            if (rawValue >= 101 || rawValue < 0)    // 노브에서 선택된 값이 범위를 벗어나면,
+                return (int)array.GetValue(-1);     // 일부러 에러를 리턴
 
-            if (rowValue >= 101 || rowValue < 0)
-                return (int)array.GetValue(-1);
-
-            return (int)array.GetValue(index);
+            return (int)array.GetValue(index);      // 문제가 없다면, array[index]의 값을 리턴
         }
 
         /// <summary>
@@ -219,39 +237,37 @@ namespace ExcavationControl.Views
 
         private void FindTextBox(string s)
         {
-            string indicator = s.Remove(2);
-            double value = double.Parse(s.Replace(indicator, string.Empty));
+            string indicator = s.Remove(2);                                                 // 문자열에서 indicator 파싱
+            double value = double.Parse(s.Replace(indicator, string.Empty));                // 문자열에서 value 파싱
 
             Debug.WriteLine(string.Format("indicater : {0}, value : {1}", indicator, value));
 
-            if (indicator.Contains("S"))
+            if (indicator.Contains("S"))                                                    // T 문자열인지 비교
             {
-                foreach (var data in SBoxList)
-                    if (data.Name.Equals(indicator))
-                        data.Text = value.ToString();
+                foreach (var data in SBoxList)                                              // S 문자열이라면 S 텍스트 박스의 값을 가져옴
+                    if (data.Name.Equals(indicator))                                        // 텍스트 박스의 이름이 indicator와 같으면,
+                        data.Text = value.ToString();                                       // 텍스트 박스의 Text를 value로 지정
             }
 
-            else if (indicator.Contains("T"))
+            else if (indicator.Contains("T"))                                               // T 문자열인지 비교
             {
-                foreach (var data in TBoxList)
-                    if (data.Name.Equals(indicator))
-                        data.Text = value.ToString();
+                foreach (var data in TBoxList)                                              // T 문자열이라면 T 텍스트 박스의 값을 가져옴
+                    if (data.Name.Equals(indicator))                                        // 텍스트 박스의 이름이 indicator와 같으면,
+                        data.Text = value.ToString();                                       // 텍스트 박스의 Text를 value로 지정
 
-                Angle.Text = (double.Parse(T1.Text) + double.Parse(T2.Text)).ToString();
+                Angle.Text = (double.Parse(T1.Text) + double.Parse(T2.Text)).ToString();    // T1과 T2의 값을 합해서 Angle의 텍스트로 지정
             }
 
-            else if (indicator.Contains("F"))
+            else if (indicator.Contains("F"))                                               // F 문자열인지 비교
             {
-                foreach (var data in FBoxList)
-                    if (data.Name.Equals(indicator))
-                        data.Text = value.ToString();
+                foreach (var data in FBoxList)                                              // F 문자열이라면 F 텍스트 박스의 값을 가져옴
+                    if (data.Name.Equals(indicator))                                        // 텍스트 박스의 이름이 indicator와 같으면,
+                        data.Text = value.ToString();                                       // 텍스트 박스의 Text를 value로 지정 
 
-                FTotal.Text = (double.Parse(F1.Text) + double.Parse(F2.Text)).ToString();
+                FTotal.Text = (double.Parse(F1.Text) + double.Parse(F2.Text)).ToString();   // F1과 F2의 값을 합해서 Angle의 텍스트로 지정
             }
 
-            //WriteString += string.Format("{0} : {1}    ", indicator, value);
-
-            sensorDataRow[indicator] = value;
+            sensorDataRow[indicator] = value;                                               // 데이터로우에 indicator형 값에 value 저장. 
         }
 
         #endregion
@@ -299,71 +315,76 @@ namespace ExcavationControl.Views
             else if (receivedData.Contains("AASEND-OK"))
                 Debug.WriteLine("AA 전송 성공!");
 
-            //FindAngle(receivedData);
-
             // 아래의 비교구문들을 실행 하면 다른 것들이 안 됨! ==> Write를 하지 않고 WriteLine을 해야 문제가 없음!
 
             if (receivedData.Contains("SP-"))
             {
                 List<string> CriteriaList = new List<string>();
 
+                // 기준 문자열 리스트에 문자열은 한 개씩 추가
+
                 for (int i = 0; i < 8; i++)
                     CriteriaList.Add("S" + (i + 1));
 
-                WriteString += "\r\n";
+                // 기준 문자열 리스트에서 문자열은 한 개씩 가져온다
 
                 foreach (var data in CriteriaList)
                 {
-                    int startIndex = receivedData.IndexOf(data);
+                    int startIndex = receivedData.IndexOf(data);            // 기준 문자열 시작 인덱스 저장 
 
-                    string result = receivedData.Substring(startIndex, 6);
+                    string result = receivedData.Substring(startIndex, 6);  // 전체 문자열에서 해당 문자열만 파싱
 
                     Debug.WriteLine("잘라낸 문자열 : " + result);
 
+                    // 다른 스레드 내부에서는 UI단에 접근을 할 수 없기 떄문에 아래와 같은 구문을 사용
+
                     Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        FindTextBox(result);
+                        FindTextBox(result);                                // 파싱한 값을 FindTextBox함수에 실어서 실행
+
                     }));
                 }
 
-                _Serial.DataReceived -= _Serial_DataReceived;
+                _Serial.DataReceived -= _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 정지.
 
-                CommandWriteLine("SP-OK");
-
-                _Serial.DataReceived += _Serial_DataReceived;
-
-                //CommandWrite("SP-OK");
-
+                CommandWriteLine("SP-OK");                                  // CommandWrite를 하면 계속 기다리는 현상이 발생한다. 하지만, CommandWriteLine 함수를 실행시키면,
+                                                                            //  내부에서 SerialPort.WriteLine 함수를 실행하여 딱 한 라인을 실행하고 응답 대기 없이 종료한다.
+                _Serial.DataReceived += _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 재개.
             }
 
             if (receivedData.Contains("RS-"))
             {
                 List<string> CriteriaList = new List<string>();
 
+                // 기준 문자열 리스트에 문자열은 한 개씩 추가
+
                 for (int i = 0; i < 2; i++)
                     CriteriaList.Add("T" + (i + 1));
 
-                WriteString += "\r\n";
+                // 기준 문자열 리스트에서 문자열은 한 개씩 가져온다
 
                 foreach (var data in CriteriaList)
                 {
-                    int startIndex = receivedData.IndexOf(data);
+                    int startIndex = receivedData.IndexOf(data);            // 기준 문자열 시작 인덱스 저장 
 
-                    string result = receivedData.Substring(startIndex, 6);
+                    string result = receivedData.Substring(startIndex, 6);  // 전체 문자열에서 해당 문자열만 파싱
 
                     Debug.WriteLine("잘라낸 문자열 : " + result);
 
+                    // 다른 스레드 내부에서는 UI단에 접근을 할 수 없기 떄문에 아래와 같은 구문을 사용
+
                     Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        FindTextBox(result);
+                        FindTextBox(result);                                // 파싱한 값을 FindTextBox함수에 실어서 실행
+
                     }));
                 }
 
-                _Serial.DataReceived -= _Serial_DataReceived;
+                _Serial.DataReceived -= _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 정지.
 
-                CommandWriteLine("RS-OK");
-
-                _Serial.DataReceived += _Serial_DataReceived;
+                CommandWriteLine("RS-OK");                                  // CommandWrite를 하면 계속 기다리는 현상이 발생한다. 하지만, CommandWriteLine 함수를 실행시키면,
+                                                                            //  내부에서 SerialPort.WriteLine 함수를 실행하여 딱 한 라인을 실행하고 응답 대기 없이 종료한다.
+                _Serial.DataReceived += _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 재개.
             }
 
             if (receivedData.Contains("RF-"))
@@ -423,8 +444,8 @@ namespace ExcavationControl.Views
 
                     string y = receivedData.Substring(startIndex, 6);           // 전체 문자열에서 해당 문자열만 파싱
 
-                    indicator = y.Remove(1);                                    // 문자열에서 Z 알파벳 파싱
-                    value = double.Parse(y.Replace(indicator, string.Empty));   // 문자열에서 Z 알파벳을 제외한 부분 파싱후 value에 저장
+                    indicator = y.Remove(1);                                    // 문자열에서 Y 알파벳 파싱
+                    value = double.Parse(y.Replace(indicator, string.Empty));   // 문자열에서 Y 알파벳을 제외한 부분 파싱후 value에 저장
 
                     sensorDataRow[indicator] = value;                           // 데이터로우에 indicator형 값에 value 저장. 
 
@@ -657,6 +678,20 @@ namespace ExcavationControl.Views
                         break;
                     }
 
+                    if (HModel.Direction.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = "Direction을 선택 해 주십시오!";
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
 
                     Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
@@ -796,6 +831,20 @@ namespace ExcavationControl.Views
 
                         string Title = "경고!";
                         string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    if (SModel.Direction.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = "Direction을 선택 해 주십시오!";
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
@@ -945,6 +994,20 @@ namespace ExcavationControl.Views
                         break;
                     }
 
+                    if (CModel.Direction.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = "Direction을 선택 해 주십시오!";
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
                     var stopButton = VisualTreeHelper.GetChild(((ToggleButton)selectedButton).Parent, 1) as UIElement;
 
                     Debug.WriteLine("Changed Button's Uid :" + stopButton.Uid);
@@ -1082,6 +1145,20 @@ namespace ExcavationControl.Views
 
                         string Title = "경고!";
                         string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", baseValue);
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
+                    }
+
+                    if (EModel.Direction.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = "Direction을 선택 해 주십시오!";
 
                         MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
@@ -1330,6 +1407,20 @@ namespace ExcavationControl.Views
                         AAText_1.Focus();
 
                         return;
+                    }
+
+                    if (RModel.Direction.Equals(string.Empty))
+                    {
+                        MessageBoxImage boxImage = MessageBoxImage.Warning;
+                        MessageBoxButton boxButton = MessageBoxButton.OK;
+                        MessageBoxOptions boxOptions = MessageBoxOptions.DefaultDesktopOnly;
+
+                        string Title = "경고!";
+                        string Content = "Direction을 선택 해 주십시오!";
+
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
+
+                        break;
                     }
 
                     if (RModel.Direction == "U" || RModel.Direction == "D")

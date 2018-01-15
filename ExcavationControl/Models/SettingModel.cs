@@ -8,7 +8,7 @@ namespace ExcavationControl.Models
 {
     public class SettingModel
     {
-        public string Direction { get; set; } = "R";
+        public string Direction { get; set; } = "";
         public string Value { get; set; } = "000";
     }
 
