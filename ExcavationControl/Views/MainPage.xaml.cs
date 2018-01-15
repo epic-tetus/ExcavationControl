@@ -1,8 +1,12 @@
-﻿using ExcavationControl.Models;
+﻿using ExcavationControl.Controllers;
+using ExcavationControl.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -31,15 +35,26 @@ namespace ExcavationControl.Views
 
         SerialPort _Serial;
 
+        private FileStream fs;
+        private StreamWriter sw;
+
+        private string WriteString;
+
         private SettingModel HModel;
         private SettingModel SModel;
         private SettingModel CModel;
         private SettingModel EModel;
         private SettingModel RModel;
 
+        private DataTable dataTable;
+        private DataRow sensorDataRow;
+
         private List<TextBox> SBoxList;
         private List<TextBox> TBoxList;
         private List<TextBox> FBoxList;
+
+        private SaveFileDialog fileDialog;
+        private OpenFileDialog openDialog;
 
         #endregion
 
@@ -52,6 +67,8 @@ namespace ExcavationControl.Views
             _Serial = serial;
             _Serial.DataReceived += _Serial_DataReceived;
 
+            WriteString = string.Empty;
+
             HCKnob.knob.ValueChanged += HCKnob_ValueChanged;
             SCKnob.knob.ValueChanged += SCKnob_ValueChanged;
             CBKnob.knob.ValueChanged += CBKnob_ValueChanged;
@@ -62,6 +79,10 @@ namespace ExcavationControl.Views
             CModel = new SettingModel();
             EModel = new SettingModel();
             RModel = new SettingModel();
+
+            //SValueList = new List<string>();
+            //TValueList = new List<string>();
+            //FValueList = new List<string>();
 
             SBoxList = new List<TextBox>();
             TBoxList = new List<TextBox>();
@@ -76,7 +97,7 @@ namespace ExcavationControl.Views
                 Debug.WriteLine(((TextBox)ChildBox).Name);
             }
 
-            for(int i = 1; i < 3; i++)
+            for (int i = 1; i < 3; i++)
             {
                 var ChildBox = VisualTreeHelper.GetChild(BottomImageGrid, i + 8) as UIElement;
 
@@ -97,11 +118,32 @@ namespace ExcavationControl.Views
             SBoxList = SBoxList.OrderBy(x => x.Name).ToList();
             TBoxList = TBoxList.OrderBy(x => x.Name).ToList();
             FBoxList = FBoxList.OrderBy(x => x.Name).ToList();
+
+            dataTable = new DataTable();
+
+            dataTable.Columns.Add(new DataColumn("TimeStamp", typeof(DateTime)));
+            dataTable.Columns.Add(new DataColumn("S1", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S2", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S3", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S4", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S5", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S6", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S7", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("S8", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("T1", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("T2", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("F1", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("F2", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("X", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("Y", typeof(double)));
+            dataTable.Columns.Add(new DataColumn("Z", typeof(double)));
+
+            sensorDataRow = null;
         }
 
         #endregion
 
-        
+
 
         #region 사용자 정의 함수
 
@@ -161,7 +203,7 @@ namespace ExcavationControl.Views
 
             if (rowValue % 5 > (5 / 2))
                 index = rowValue / 5 + 1;
-            else 
+            else
                 index = rowValue / 5;
 
             if (rowValue >= 101 || rowValue < 0)
@@ -170,37 +212,46 @@ namespace ExcavationControl.Views
             return (int)array.GetValue(index);
         }
 
+        /// <summary>
+        /// 해당하는 텍스트 박스를 찾는 함수
+        /// </summary>
+        /// <param name="s"></param>
+
         private void FindTextBox(string s)
         {
-            string indicater = s.Remove(2);
-            double value = double.Parse(s.Replace(indicater, string.Empty));
+            string indicator = s.Remove(2);
+            double value = double.Parse(s.Replace(indicator, string.Empty));
 
-            Debug.WriteLine(string.Format("indicater : {0}, value : {1}", indicater, value));
+            Debug.WriteLine(string.Format("indicater : {0}, value : {1}", indicator, value));
 
-            if (indicater.Contains("S"))
+            if (indicator.Contains("S"))
             {
-                foreach(var data in SBoxList)
-                    if (data.Name.Equals(indicater))
+                foreach (var data in SBoxList)
+                    if (data.Name.Equals(indicator))
                         data.Text = value.ToString();
             }
 
-            else if (indicater.Contains("T"))
+            else if (indicator.Contains("T"))
             {
                 foreach (var data in TBoxList)
-                    if (data.Name.Equals(indicater))
+                    if (data.Name.Equals(indicator))
                         data.Text = value.ToString();
 
                 Angle.Text = (double.Parse(T1.Text) + double.Parse(T2.Text)).ToString();
             }
 
-            else if (indicater.Contains("F"))
+            else if (indicator.Contains("F"))
             {
                 foreach (var data in FBoxList)
-                    if (data.Name.Equals(indicater))
+                    if (data.Name.Equals(indicator))
                         data.Text = value.ToString();
 
                 FTotal.Text = (double.Parse(F1.Text) + double.Parse(F2.Text)).ToString();
             }
+
+            //WriteString += string.Format("{0} : {1}    ", indicator, value);
+
+            sensorDataRow[indicator] = value;
         }
 
         #endregion
@@ -209,6 +260,8 @@ namespace ExcavationControl.Views
 
         private void _Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            sensorDataRow = dataTable.NewRow();
+
             var receivedData = _Serial.ReadExisting();
 
             Debug.WriteLine("받은 데이터 : " + _Serial.ReadExisting());
@@ -257,6 +310,8 @@ namespace ExcavationControl.Views
                 for (int i = 0; i < 8; i++)
                     CriteriaList.Add("S" + (i + 1));
 
+                WriteString += "\r\n";
+
                 foreach (var data in CriteriaList)
                 {
                     int startIndex = receivedData.IndexOf(data);
@@ -288,6 +343,8 @@ namespace ExcavationControl.Views
                 for (int i = 0; i < 2; i++)
                     CriteriaList.Add("T" + (i + 1));
 
+                WriteString += "\r\n";
+
                 foreach (var data in CriteriaList)
                 {
                     int startIndex = receivedData.IndexOf(data);
@@ -307,73 +364,111 @@ namespace ExcavationControl.Views
                 CommandWriteLine("RS-OK");
 
                 _Serial.DataReceived += _Serial_DataReceived;
-
-                //CommandWrite("RS-OK");
-
             }
+
             if (receivedData.Contains("RF-"))
             {
                 List<string> CriteriaList = new List<string>();
 
+                // 기준 문자열 리스트에 문자열은 한 개씩 추가
+
                 for (int i = 0; i < 2; i++)
                     CriteriaList.Add("F" + (i + 1));
 
+                // 기준 문자열 리스트에서 문자열은 한 개씩 가져온다
+
                 foreach (var data in CriteriaList)
                 {
-                    int startIndex = receivedData.IndexOf(data);
+                    int startIndex = receivedData.IndexOf(data);            // 기준 문자열 시작 인덱스 저장 
 
-                    string result = receivedData.Substring(startIndex, 6);
+                    string result = receivedData.Substring(startIndex, 6);  // 전체 문자열에서 해당 문자열만 파싱
 
                     Debug.WriteLine("잘라낸 문자열 : " + result);
 
+                    // 다른 스레드 내부에서는 UI단에 접근을 할 수 없기 떄문에 아래와 같은 구문을 사용
+
                     Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        FindTextBox(result);
+                        FindTextBox(result);                                // 파싱한 값을 FindTextBox함수에 실어서 실행
+
                     }));
                 }
 
-                _Serial.DataReceived -= _Serial_DataReceived;
+                _Serial.DataReceived -= _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 정지.
 
-                CommandWriteLine("RF-OK");
-
-                _Serial.DataReceived += _Serial_DataReceived;
-
-                //CommandWrite("RF-OK");
+                CommandWriteLine("RF-OK");                                  // CommandWrite를 하면 계속 기다리는 현상이 발생한다. 하지만, CommandWriteLine 함수를 실행시키면,
+                                                                            //  내부에서 SerialPort.WriteLine 함수를 실행하여 딱 한 라인을 실행하고 응답 대기 없이 종료한다.
+                _Serial.DataReceived += _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 재개.
             }
+
             if (receivedData.Contains("IS-"))
             {
-                int startIndex = receivedData.IndexOf("X");
 
-                string x = receivedData.Substring(startIndex, 6);
-
-                x = x.Replace("X", "");
-
-                startIndex = receivedData.IndexOf("Y");
-
-                string y = receivedData.Substring(startIndex, 6);
-
-                y = y.Replace("Y", "");
-
-                startIndex = receivedData.IndexOf("Z");
-
-                string z = receivedData.Substring(startIndex, 6);
-
-                z = z.Replace("Z", "");
+                // 다른 스레드 내부에서는 UI단에 접근을 할 수 없기 떄문에 아래와 같은 구문을 사용
 
                 Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    XAngle.Text = double.Parse(x).ToString();
-                    YAngle.Text = double.Parse(y).ToString();
-                    ZAngle.Text = double.Parse(z).ToString();
+                    int startIndex = receivedData.IndexOf("X");                 // X 문자열시작 인덱스 저장
+
+                    string x = receivedData.Substring(startIndex, 6);           // 전체 문자열에서 해당 문자열만 파싱
+
+                    string indicator = x.Remove(1);                                     // 문자열에서 X 알파벳 파싱
+                    double value = double.Parse(x.Replace(indicator, string.Empty));    // 문자열에서 X 알파벳을 제외한 부분 파싱후 value에 저장
+
+                    sensorDataRow[indicator] = value;                           // 데이터로우에 indicator형 값에 value 저장. 
+
+                    XAngle.Text = value.ToString();                             // XAngle 텍스트 박스에 value 값을 지정 
+
+                    startIndex = receivedData.IndexOf("Y");                     // Y 문자열시작 인덱스 저장
+
+                    string y = receivedData.Substring(startIndex, 6);           // 전체 문자열에서 해당 문자열만 파싱
+
+                    indicator = y.Remove(1);                                    // 문자열에서 Z 알파벳 파싱
+                    value = double.Parse(y.Replace(indicator, string.Empty));   // 문자열에서 Z 알파벳을 제외한 부분 파싱후 value에 저장
+
+                    sensorDataRow[indicator] = value;                           // 데이터로우에 indicator형 값에 value 저장. 
+
+                    YAngle.Text = value.ToString();                             // YAngle 텍스트 박스에 value 값을 지정 
+
+                    startIndex = receivedData.IndexOf("Z");                     // Z 문자열시작 인덱스 저장
+
+                    string z = receivedData.Substring(startIndex, 6);           // 전체 문자열에서 해당 문자열만 파싱
+
+                    indicator = z.Remove(1);                                    // 문자열에서 Z 알파벳 파싱
+                    value = double.Parse(z.Replace(indicator, string.Empty));   // 문자열에서 Z 알파벳을 제외한 부분 파싱후 value에 저장
+
+                    sensorDataRow[indicator] = value;                       // 데이터로우에 indicator형 값에 value 저장. 
+
+                    ZAngle.Text = value.ToString();                         // ZAngle 텍스트 박스에 value 값을 지정 
                 }));
 
-                _Serial.DataReceived -= _Serial_DataReceived;
+                _Serial.DataReceived -= _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 정지.
 
-                CommandWriteLine("IS-OK");
+                CommandWriteLine("IS-OK");                                  // CommandWrite를 하면 계속 기다리는 현상이 발생한다. 하지만, CommandWriteLine 함수를 실행시키면,
+                                                                            //  내부에서 SerialPort.WriteLine 함수를 실행하여 딱 한 라인을 실행하고 응답 대기 없이 종료한다.
 
-                _Serial.DataReceived += _Serial_DataReceived;
+                _Serial.DataReceived += _Serial_DataReceived;               // 정보를 쓸 동안만 정보 받는 것을 재개.
 
-                //CommandWrite("IS-OK");
+                sensorDataRow["TimeStamp"] = DateTime.Now.ToLocalTime();    // 현재 시간 저장
+
+                dataTable.Rows.Add(sensorDataRow);      // 데이터 테이블에 열을 추가
+
+                fs = new FileStream(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SensorResult.csv"), FileMode.OpenOrCreate, FileAccess.Write);     // 저장 될 파일의 위치
+
+                sw = new StreamWriter(fs, Encoding.UTF8);   // 문자를 파일에 쓰기위한 StreamWriter
+
+                string line = string.Join(",", dataTable.Columns.Cast<object>());   //컬럼 이름들을 ","로 나누고 저장.
+                sw.WriteLine(line);     // StreamWriter로 파일에 라인 쓰기
+
+                //row들을 ","로 나누고 저장.
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    line = string.Join(",", item.ItemArray.Cast<object>());     // 데이터 테이블의 열을 차례대로 불러와서 ","로 나누고 저장
+                    sw.WriteLine(line);     // StreamWriter로 파일에 라인 쓰기
+                }
+
+                sw.Close();     // StreamWriter 자원 free
+                fs.Close();     // FileStream 자원 free
             }
 
         }
@@ -455,7 +550,7 @@ namespace ExcavationControl.Views
             }
 
             HCKnob.knob.Value = destinationValue;
-            
+
             HText.Text = destinationValue.ToString();
         }
 
@@ -594,7 +689,7 @@ namespace ExcavationControl.Views
             {
                 case "0":
                     Debug.WriteLine("Up Button");
-                    if( destinationValue > 100)
+                    if (destinationValue > 100)
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
@@ -603,7 +698,7 @@ namespace ExcavationControl.Views
                         string Title = "경고!";
                         string Content = string.Format("선택하신 숫자는 {0}으로, \n선택 가능한 수의 범위를 넘었습니다.", destinationValue);
 
-                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK ,options: boxOptions);
+                        MessageBox.Show(Content, Title, boxButton, boxImage, MessageBoxResult.OK, options: boxOptions);
 
                         break;
                     }
@@ -1049,7 +1144,7 @@ namespace ExcavationControl.Views
 
                     var _Parent = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
 
-                    var angleButton = VisualTreeHelper.GetChild( VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent, 2), 0),0);
+                    var angleButton = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent, 2), 0), 0);
 
                     var downGrid = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 1) as UIElement;
 
@@ -1077,7 +1172,7 @@ namespace ExcavationControl.Views
 
                     var _Parent1 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
 
-                    var angleButton1 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent1, 2), 0),0);
+                    var angleButton1 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent1, 2), 0), 0);
 
                     var downGrid1 = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 1) as UIElement;
 
@@ -1105,7 +1200,7 @@ namespace ExcavationControl.Views
 
                     var _Parent2 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
 
-                    var angleButton2 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent2, 2), 0),0);
+                    var angleButton2 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent2, 2), 0), 0);
 
                     var upGrid = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 0) as UIElement;
 
@@ -1133,7 +1228,7 @@ namespace ExcavationControl.Views
 
                     var _Parent3 = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(selectedButton)));
 
-                    var angleButton3 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild( VisualTreeHelper.GetChild(_Parent3, 2),0),0);
+                    var angleButton3 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(_Parent3, 2), 0), 0);
 
                     var upGrid1 = VisualTreeHelper.GetChild(((Grid)((ToggleButton)selectedButton).Parent).Parent, 0) as UIElement;
 
@@ -1163,7 +1258,7 @@ namespace ExcavationControl.Views
                     var P2 = VisualTreeHelper.GetParent(P1);
                     var P3 = VisualTreeHelper.GetParent(P2);
                     var P4 = VisualTreeHelper.GetParent(P3);
-                        
+
                     Debug.WriteLine("First : " + P1);
                     Debug.WriteLine("Second : " + P2);
                     Debug.WriteLine("Third : " + P3);
@@ -1175,9 +1270,9 @@ namespace ExcavationControl.Views
                     Array ToggleButtonArray = new ToggleButton[4] { (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(0) as UIElement , 0),
                                                                     (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(0) as UIElement, 1),
                                                                     (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(1) as UIElement, 0),
-                                                                    (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(1) as UIElement, 1) }; 
+                                                                    (ToggleButton)VisualTreeHelper.GetChild(upPanel.GetValue(1) as UIElement, 1) };
 
-                    foreach(ToggleButton data in ToggleButtonArray)
+                    foreach (ToggleButton data in ToggleButtonArray)
                     {
                         data.IsChecked = false;
                     }
@@ -1189,7 +1284,7 @@ namespace ExcavationControl.Views
                 case "5":
                     Debug.WriteLine("Send Button");
 
-                    string sendText="";
+                    string sendText = "";
 
                     if (!AAText_1.Text.Contains("."))
                     {
@@ -1221,7 +1316,7 @@ namespace ExcavationControl.Views
 
                         return;
                     }
-                    else if(!AAText_3.Text.Contains("."))
+                    else if (!AAText_3.Text.Contains("."))
                     {
                         MessageBoxImage boxImage = MessageBoxImage.Warning;
                         MessageBoxButton boxButton = MessageBoxButton.OK;
@@ -1239,14 +1334,14 @@ namespace ExcavationControl.Views
 
                     if (RModel.Direction == "U" || RModel.Direction == "D")
                         sendText = AAText_1.Text;
-                    else if(RModel.Direction == "R" || RModel.Direction == "L")
+                    else if (RModel.Direction == "R" || RModel.Direction == "L")
                         sendText = AAText_2.Text;
-                    else if(RModel.Direction == "A")
+                    else if (RModel.Direction == "A")
                         sendText = AAText_3.Text;
 
-                    RModel.Value = string.Format("{0:000.0}", double.Parse(sendText.Replace("˚",string.Empty)));
+                    RModel.Value = string.Format("{0:000.0}", double.Parse(sendText.Replace("˚", string.Empty)));
 
-                    CommandWrite(string.Format("AASEND-{0}{1}",RModel.Direction,RModel.Value));
+                    CommandWrite(string.Format("AASEND-{0}{1}", RModel.Direction, RModel.Value));
 
                     break;
             }
@@ -1319,7 +1414,7 @@ namespace ExcavationControl.Views
 
         private void HText_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 try
                 {
@@ -1471,5 +1566,55 @@ namespace ExcavationControl.Views
         #endregion
 
         #endregion
+
+
+        ///// <summary>
+        ///// 판넬 조정하는 버튼 (제일 상단 버튼 호버하면 보임)
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+
+        //private void PanelControlButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if(PanelControlButton.Content.ToString() == "△")
+        //    {
+        //        RightPanel.Visibility = Visibility.Collapsed;
+        //        MainGrid.Visibility = Visibility.Collapsed;
+        //        PanelControlButton.Content = "▽";
+
+        //        Grid.SetRow(BottomImageGrid, 0);
+        //        Grid.SetRowSpan(BottomImageGrid, 2);
+
+        //        BottomImage.Stretch = Stretch.Uniform;
+
+        //        BottomImageGrid.HorizontalAlignment = HorizontalAlignment.Center;
+        //        BottomImageGrid.VerticalAlignment = VerticalAlignment.Center;
+        //    }
+        //    else
+        //    {
+        //        RightPanel.Visibility = Visibility.Visible;
+        //        MainGrid.Visibility = Visibility.Visible;
+        //        PanelControlButton.Content = "△";
+        //        Grid.SetRow(BottomImageGrid, 1);
+        //        Grid.SetRowSpan(BottomImageGrid, 1);
+
+        //        BottomImageGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
+        //        BottomImageGrid.VerticalAlignment = VerticalAlignment.Stretch;
+        //    }
+
+        //}
+
+        ///// <summary>
+        ///// 마우스 호버를 위한 함수
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+
+        //private void Page_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    if(e.MouseDevice.GetPosition((Page)sender).Y <= 40)
+        //        PanelControlButton.Visibility = Visibility.Visible;
+        //    else PanelControlButton.Visibility = Visibility.Collapsed;
+        //}
     }
 }

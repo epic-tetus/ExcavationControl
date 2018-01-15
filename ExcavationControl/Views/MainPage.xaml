@@ -9,7 +9,8 @@
       SizeChanged="Page_SizeChanged"
       Title="MainPage" Background="White"
       FontSize="12"
-      Width="1406" Height="980">
+      Width="1406" Height="980"
+      >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,12 +23,42 @@
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
 
-
+        <Button x:Name="PanelControlButton" 
+                Grid.Row="0" Grid.ColumnSpan="2"
+                Foreground="Black" 
+                FontSize="40" Content="△"
+                HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                Panel.ZIndex="1" Visibility="Collapsed"
+                >
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Opacity" Value="0.5"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
+        
         <!--설정 부분-->
 
 
-
-        <Grid Grid.Column="1" Grid.Row="0">
+        <Grid x:Name="RightPanel"
+              Grid.Column="1" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.7*"/>
@@ -263,7 +294,8 @@
 
 
         <!--노브 부분-->
-        <Grid Grid.Row="0" ShowGridLines="False">
+        <Grid x:Name="MainGrid"
+              Grid.Row="0" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.175*"/>
                 <ColumnDefinition Width="0.175*"/>
@@ -874,9 +906,14 @@
 
         <!--출력 화면-->
 
-        <Grid x:Name="BottomImageGrid" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False" Margin="10" VerticalAlignment="Bottom">
+        <Grid x:Name="BottomImageGrid" 
+              Grid.Row="1" Grid.ColumnSpan="2" 
+              ShowGridLines="False" 
+              Margin="10" 
+              VerticalAlignment="Bottom">
 
-            <Image Source="../Assets/Excavation (1).png" 
+            <Image x:Name="BottomImage"
+                   Source="../Assets/Excavation (1).png" 
                    Stretch="Uniform"/>
 
             <TextBox x:Name="S1" 

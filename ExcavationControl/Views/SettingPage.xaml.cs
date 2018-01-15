@@ -80,13 +80,13 @@ namespace ExcavationControl.Views
 
                 NavigationService.Navigate(mainPage);
 
-                Application.Current.MainWindow.MinWidth = 1236;
+                Application.Current.MainWindow.MinWidth = 836;
 
-                Application.Current.MainWindow.MinHeight = 805;
+                Application.Current.MainWindow.MinHeight = 405;
 
-                Application.Current.MainWindow.Width = 1446;
+                Application.Current.MainWindow.Width = 1236;
 
-                Application.Current.MainWindow.Height = 1015;
+                Application.Current.MainWindow.Height = 805;
 
                 //Application.Current.MainWindow.MaxWidth = 1406;
 
